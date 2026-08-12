@@ -49,5 +49,9 @@ VignetteBuilder: knitr
 Config/testthat/edition: 3
 URL: https://github.com/dralperenuysal/circaTime
 BugReports: https://github.com/dralperenuysal/circaTime/issues
+Remotes:
+    github::micnngo/tauFisher,
+    github::braunr/TimeSignatR,
+    github::hugheylab/zeitzeiger
 Config/roxygen2/version: 8.0.0
 RoxygenNote: 7.3.2
