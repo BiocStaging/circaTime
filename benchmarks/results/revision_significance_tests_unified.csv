@@ -1,0 +1,10 @@
+"comparison","test","statistic","p_raw","p_holm","n_tissues","effect_size_h","ci_lo_h","ci_hi_h"
+"Table4_all_methods","friedman",7.9,0.0481242518441601,NA,12,NA,NA,NA
+"Table4_timetable_vs_consensus_accuracy","wilcoxon_paired",NA,0.84451926747294,0.84451926747294,12,-0.0108988481736384,NA,NA
+"Table4_timetable_vs_consensus_equal","wilcoxon_paired",NA,0.346336156989997,0.692672313979993,12,-0.0574652777777781,NA,NA
+"Table4_timetable_vs_taufisher","wilcoxon_paired",NA,0.19536693789565,0.586100813686949,12,-0.201736111111111,NA,NA
+"Table4_consensus_accuracy_vs_consensus_equal","wilcoxon_paired",NA,0.00252617426850217,0.0101046970740087,12,-0.0465664296041397,NA,NA
+"Table4_pooled_mean_timetable","bootstrap_tissue_10000",NA,NA,NA,12,0.698263888888889,0.627769097222222,0.772578125
+"Table4_pooled_mean_taufisher","bootstrap_tissue_10000",NA,NA,NA,12,0.9,0.683333333333333,1.18333333333333
+"Table4_pooled_mean_consensus_equal","bootstrap_tissue_10000",NA,NA,NA,12,0.755729166666667,0.635069444444445,0.906953125000001
+"Table4_pooled_mean_consensus_accuracy","bootstrap_tissue_10000",NA,NA,NA,12,0.709162737062527,0.620750565798534,0.806063341198273

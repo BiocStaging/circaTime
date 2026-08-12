@@ -1,0 +1,53 @@
+Package: circaTime
+Type: Package
+Title: Unified Inference of Circadian Phase from Bulk and Pseudobulk Transcriptomes
+Version: 0.99.0
+Authors@R: person("Alperen", "Uysal", role = c("aut", "cre"),
+    email = "dralperenuysal@gmail.com",
+    comment = c(ORCID = "0000-0003-3777-6411"))
+Description: Provides a single SummarizedExperiment-based interface to published
+    circadian phase (time-of-sample-collection) inference methods for bulk and
+    donor-level pseudobulk transcriptomes, along with a shared cross-validation
+    benchmarking harness, cross-dataset transfer testing, and a calibrated
+    uncertainty layer: bootstrap and Bayesian confidence intervals validated for
+    real coverage, a fixed or dynamically-selected clock-gene quality flag, and
+    consensus phase estimation across every bundled engine. Does not implement
+    a new phase-inference algorithm; unifies existing published methods that are
+    otherwise scattered across incompatible standalone implementations.
+License: Artistic-2.0
+Encoding: UTF-8
+LazyData: false
+Roxygen: list(markdown = TRUE)
+biocViews: Software, GeneExpression, Transcriptomics, Sequencing, Microarray,
+    TimeCourse, Preprocessing
+Depends:
+    R (>= 4.5)
+Imports:
+    graphics,
+    S4Vectors,
+    SummarizedExperiment,
+    methods,
+    stats,
+    withr
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    BiocStyle,
+    GEOquery,
+    tauFisher,
+    nnet,
+    TimeSignatR,
+    zeitzeiger,
+    AnnotationDbi,
+    org.Mm.eg.db,
+    org.Hs.eg.db,
+    babelgene,
+    callr,
+    pkgload
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+URL: https://github.com/dralperenuysal/circaTime
+BugReports: https://github.com/dralperenuysal/circaTime/issues
+Config/roxygen2/version: 8.0.0
+RoxygenNote: 7.3.2

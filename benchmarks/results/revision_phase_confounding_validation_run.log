@@ -1,0 +1,197 @@
+- The project is out-of-sync -- use `renv::status()` for details.
+Warning message:
+replacing previous import ‘S4Arrays::makeNindexFromArrayViewport’ by ‘DelayedArray::makeNindexFromArrayViewport’ when loading ‘SummarizedExperiment’ 
+== Type-I error grid ==
+[2026-08-11 00:08:42] groups=2 n/group=10 dist=uniform rejection_rate=0.0450
+[2026-08-11 00:09:15] groups=2 n/group=10 dist=kappa2 rejection_rate=0.0460
+[2026-08-11 00:09:50] groups=2 n/group=10 dist=kappa5 rejection_rate=0.0480
+[2026-08-11 00:10:26] groups=2 n/group=20 dist=uniform rejection_rate=0.0460
+[2026-08-11 00:11:01] groups=2 n/group=20 dist=kappa2 rejection_rate=0.0410
+[2026-08-11 00:11:41] groups=2 n/group=20 dist=kappa5 rejection_rate=0.0565
+[2026-08-11 00:12:23] groups=2 n/group=50 dist=uniform rejection_rate=0.0440
+[2026-08-11 00:13:07] groups=2 n/group=50 dist=kappa2 rejection_rate=0.0420
+[2026-08-11 00:13:50] groups=2 n/group=50 dist=kappa5 rejection_rate=0.0395
+[2026-08-11 00:14:35] groups=2 n/group=100 dist=uniform rejection_rate=0.0455
+[2026-08-11 00:15:18] groups=2 n/group=100 dist=kappa2 rejection_rate=0.0495
+[2026-08-11 00:15:58] groups=2 n/group=100 dist=kappa5 rejection_rate=0.0445
+[2026-08-11 00:16:28] groups=3 n/group=10 dist=uniform rejection_rate=0.0560
+[2026-08-11 00:16:57] groups=3 n/group=10 dist=kappa2 rejection_rate=0.0490
+[2026-08-11 00:17:25] groups=3 n/group=10 dist=kappa5 rejection_rate=0.0380
+[2026-08-11 00:17:56] groups=3 n/group=20 dist=uniform rejection_rate=0.0435
+[2026-08-11 00:18:26] groups=3 n/group=20 dist=kappa2 rejection_rate=0.0395
+[2026-08-11 00:18:56] groups=3 n/group=20 dist=kappa5 rejection_rate=0.0415
+[2026-08-11 00:19:30] groups=3 n/group=50 dist=uniform rejection_rate=0.0555
+[2026-08-11 00:20:05] groups=3 n/group=50 dist=kappa2 rejection_rate=0.0470
+[2026-08-11 00:20:40] groups=3 n/group=50 dist=kappa5 rejection_rate=0.0450
+[2026-08-11 00:21:20] groups=3 n/group=100 dist=uniform rejection_rate=0.0470
+[2026-08-11 00:22:01] groups=3 n/group=100 dist=kappa2 rejection_rate=0.0480
+[2026-08-11 00:22:42] groups=3 n/group=100 dist=kappa5 rejection_rate=0.0405
+== Power grid ==
+[2026-08-11 00:23:09] groups=2 n/group=10 dist=uniform offset=0h rejection_rate=0.0450
+[2026-08-11 00:23:37] groups=2 n/group=10 dist=uniform offset=1h rejection_rate=0.0535
+[2026-08-11 00:24:05] groups=2 n/group=10 dist=uniform offset=2h rejection_rate=0.0365
+[2026-08-11 00:24:33] groups=2 n/group=10 dist=uniform offset=3h rejection_rate=0.0475
+[2026-08-11 00:25:01] groups=2 n/group=10 dist=uniform offset=4h rejection_rate=0.0475
+[2026-08-11 00:25:30] groups=2 n/group=10 dist=uniform offset=6h rejection_rate=0.0480
+[2026-08-11 00:25:59] groups=2 n/group=10 dist=kappa2 offset=0h rejection_rate=0.0505
+[2026-08-11 00:26:27] groups=2 n/group=10 dist=kappa2 offset=1h rejection_rate=0.0940
+[2026-08-11 00:26:56] groups=2 n/group=10 dist=kappa2 offset=2h rejection_rate=0.2325
+[2026-08-11 00:27:29] groups=2 n/group=10 dist=kappa2 offset=3h rejection_rate=0.4835
+[2026-08-11 00:28:00] groups=2 n/group=10 dist=kappa2 offset=4h rejection_rate=0.6900
+[2026-08-11 00:28:30] groups=2 n/group=10 dist=kappa2 offset=6h rejection_rate=0.9390
+[2026-08-11 00:28:57] groups=2 n/group=10 dist=kappa5 offset=0h rejection_rate=0.0340
+[2026-08-11 00:29:25] groups=2 n/group=10 dist=kappa5 offset=1h rejection_rate=0.1970
+[2026-08-11 00:29:54] groups=2 n/group=10 dist=kappa5 offset=2h rejection_rate=0.6055
+[2026-08-11 00:30:23] groups=2 n/group=10 dist=kappa5 offset=3h rejection_rate=0.9195
+[2026-08-11 00:30:52] groups=2 n/group=10 dist=kappa5 offset=4h rejection_rate=0.9945
+[2026-08-11 00:31:22] groups=2 n/group=10 dist=kappa5 offset=6h rejection_rate=1.0000
+[2026-08-11 00:31:51] groups=2 n/group=20 dist=uniform offset=0h rejection_rate=0.0440
+[2026-08-11 00:32:21] groups=2 n/group=20 dist=uniform offset=1h rejection_rate=0.0440
+[2026-08-11 00:32:51] groups=2 n/group=20 dist=uniform offset=2h rejection_rate=0.0460
+[2026-08-11 00:33:22] groups=2 n/group=20 dist=uniform offset=3h rejection_rate=0.0475
+[2026-08-11 00:33:51] groups=2 n/group=20 dist=uniform offset=4h rejection_rate=0.0455
+[2026-08-11 00:34:23] groups=2 n/group=20 dist=uniform offset=6h rejection_rate=0.0410
+[2026-08-11 00:34:58] groups=2 n/group=20 dist=kappa2 offset=0h rejection_rate=0.0455
+[2026-08-11 00:35:33] groups=2 n/group=20 dist=kappa2 offset=1h rejection_rate=0.1425
+[2026-08-11 00:36:08] groups=2 n/group=20 dist=kappa2 offset=2h rejection_rate=0.4745
+[2026-08-11 00:36:43] groups=2 n/group=20 dist=kappa2 offset=3h rejection_rate=0.7735
+[2026-08-11 00:37:16] groups=2 n/group=20 dist=kappa2 offset=4h rejection_rate=0.9535
+[2026-08-11 00:37:49] groups=2 n/group=20 dist=kappa2 offset=6h rejection_rate=0.9995
+[2026-08-11 00:38:22] groups=2 n/group=20 dist=kappa5 offset=0h rejection_rate=0.0500
+[2026-08-11 00:38:54] groups=2 n/group=20 dist=kappa5 offset=1h rejection_rate=0.3640
+[2026-08-11 00:39:27] groups=2 n/group=20 dist=kappa5 offset=2h rejection_rate=0.9190
+[2026-08-11 00:39:59] groups=2 n/group=20 dist=kappa5 offset=3h rejection_rate=0.9985
+[2026-08-11 00:40:33] groups=2 n/group=20 dist=kappa5 offset=4h rejection_rate=1.0000
+[2026-08-11 00:41:06] groups=2 n/group=20 dist=kappa5 offset=6h rejection_rate=1.0000
+[2026-08-11 00:41:42] groups=2 n/group=50 dist=uniform offset=0h rejection_rate=0.0425
+[2026-08-11 00:42:18] groups=2 n/group=50 dist=uniform offset=1h rejection_rate=0.0490
+[2026-08-11 00:42:52] groups=2 n/group=50 dist=uniform offset=2h rejection_rate=0.0555
+[2026-08-11 00:43:25] groups=2 n/group=50 dist=uniform offset=3h rejection_rate=0.0415
+[2026-08-11 00:43:57] groups=2 n/group=50 dist=uniform offset=4h rejection_rate=0.0490
+[2026-08-11 00:44:29] groups=2 n/group=50 dist=uniform offset=6h rejection_rate=0.0475
+[2026-08-11 00:45:01] groups=2 n/group=50 dist=kappa2 offset=0h rejection_rate=0.0525
+[2026-08-11 00:45:33] groups=2 n/group=50 dist=kappa2 offset=1h rejection_rate=0.3070
+[2026-08-11 00:46:06] groups=2 n/group=50 dist=kappa2 offset=2h rejection_rate=0.8575
+[2026-08-11 00:46:39] groups=2 n/group=50 dist=kappa2 offset=3h rejection_rate=0.9925
+[2026-08-11 00:47:11] groups=2 n/group=50 dist=kappa2 offset=4h rejection_rate=1.0000
+[2026-08-11 00:47:43] groups=2 n/group=50 dist=kappa2 offset=6h rejection_rate=1.0000
+[2026-08-11 00:48:15] groups=2 n/group=50 dist=kappa5 offset=0h rejection_rate=0.0410
+[2026-08-11 00:48:49] groups=2 n/group=50 dist=kappa5 offset=1h rejection_rate=0.7515
+[2026-08-11 00:49:21] groups=2 n/group=50 dist=kappa5 offset=2h rejection_rate=1.0000
+[2026-08-11 00:49:52] groups=2 n/group=50 dist=kappa5 offset=3h rejection_rate=1.0000
+[2026-08-11 00:50:23] groups=2 n/group=50 dist=kappa5 offset=4h rejection_rate=1.0000
+[2026-08-11 00:50:54] groups=2 n/group=50 dist=kappa5 offset=6h rejection_rate=1.0000
+[2026-08-11 00:51:28] groups=2 n/group=100 dist=uniform offset=0h rejection_rate=0.0475
+[2026-08-11 00:52:03] groups=2 n/group=100 dist=uniform offset=1h rejection_rate=0.0400
+[2026-08-11 00:52:38] groups=2 n/group=100 dist=uniform offset=2h rejection_rate=0.0505
+[2026-08-11 00:53:12] groups=2 n/group=100 dist=uniform offset=3h rejection_rate=0.0420
+[2026-08-11 00:53:46] groups=2 n/group=100 dist=uniform offset=4h rejection_rate=0.0480
+[2026-08-11 00:54:21] groups=2 n/group=100 dist=uniform offset=6h rejection_rate=0.0460
+[2026-08-11 00:54:56] groups=2 n/group=100 dist=kappa2 offset=0h rejection_rate=0.0440
+[2026-08-11 00:55:32] groups=2 n/group=100 dist=kappa2 offset=1h rejection_rate=0.5640
+[2026-08-11 00:56:07] groups=2 n/group=100 dist=kappa2 offset=2h rejection_rate=0.9900
+[2026-08-11 00:56:42] groups=2 n/group=100 dist=kappa2 offset=3h rejection_rate=1.0000
+[2026-08-11 00:57:17] groups=2 n/group=100 dist=kappa2 offset=4h rejection_rate=1.0000
+[2026-08-11 00:57:52] groups=2 n/group=100 dist=kappa2 offset=6h rejection_rate=1.0000
+[2026-08-11 00:58:28] groups=2 n/group=100 dist=kappa5 offset=0h rejection_rate=0.0415
+[2026-08-11 00:59:03] groups=2 n/group=100 dist=kappa5 offset=1h rejection_rate=0.9660
+[2026-08-11 00:59:37] groups=2 n/group=100 dist=kappa5 offset=2h rejection_rate=1.0000
+[2026-08-11 01:00:12] groups=2 n/group=100 dist=kappa5 offset=3h rejection_rate=1.0000
+[2026-08-11 01:00:47] groups=2 n/group=100 dist=kappa5 offset=4h rejection_rate=1.0000
+[2026-08-11 01:01:22] groups=2 n/group=100 dist=kappa5 offset=6h rejection_rate=1.0000
+[2026-08-11 01:01:49] groups=3 n/group=10 dist=uniform offset=0h rejection_rate=0.0410
+[2026-08-11 01:02:16] groups=3 n/group=10 dist=uniform offset=1h rejection_rate=0.0360
+[2026-08-11 01:02:43] groups=3 n/group=10 dist=uniform offset=2h rejection_rate=0.0470
+[2026-08-11 01:03:11] groups=3 n/group=10 dist=uniform offset=3h rejection_rate=0.0365
+[2026-08-11 01:03:38] groups=3 n/group=10 dist=uniform offset=4h rejection_rate=0.0520
+[2026-08-11 01:04:05] groups=3 n/group=10 dist=uniform offset=6h rejection_rate=0.0380
+[2026-08-11 01:04:32] groups=3 n/group=10 dist=kappa2 offset=0h rejection_rate=0.0435
+[2026-08-11 01:05:00] groups=3 n/group=10 dist=kappa2 offset=1h rejection_rate=0.0965
+[2026-08-11 01:05:27] groups=3 n/group=10 dist=kappa2 offset=2h rejection_rate=0.2355
+[2026-08-11 01:05:54] groups=3 n/group=10 dist=kappa2 offset=3h rejection_rate=0.4760
+[2026-08-11 01:06:21] groups=3 n/group=10 dist=kappa2 offset=4h rejection_rate=0.7380
+[2026-08-11 01:06:49] groups=3 n/group=10 dist=kappa2 offset=6h rejection_rate=0.9555
+[2026-08-11 01:07:16] groups=3 n/group=10 dist=kappa5 offset=0h rejection_rate=0.0390
+[2026-08-11 01:07:43] groups=3 n/group=10 dist=kappa5 offset=1h rejection_rate=0.1970
+[2026-08-11 01:08:11] groups=3 n/group=10 dist=kappa5 offset=2h rejection_rate=0.6550
+[2026-08-11 01:08:38] groups=3 n/group=10 dist=kappa5 offset=3h rejection_rate=0.9485
+[2026-08-11 01:09:05] groups=3 n/group=10 dist=kappa5 offset=4h rejection_rate=0.9985
+[2026-08-11 01:09:33] groups=3 n/group=10 dist=kappa5 offset=6h rejection_rate=1.0000
+[2026-08-11 01:10:01] groups=3 n/group=20 dist=uniform offset=0h rejection_rate=0.0465
+[2026-08-11 01:10:30] groups=3 n/group=20 dist=uniform offset=1h rejection_rate=0.0495
+[2026-08-11 01:10:59] groups=3 n/group=20 dist=uniform offset=2h rejection_rate=0.0440
+[2026-08-11 01:11:28] groups=3 n/group=20 dist=uniform offset=3h rejection_rate=0.0445
+[2026-08-11 01:11:57] groups=3 n/group=20 dist=uniform offset=4h rejection_rate=0.0425
+[2026-08-11 01:12:26] groups=3 n/group=20 dist=uniform offset=6h rejection_rate=0.0455
+[2026-08-11 01:12:55] groups=3 n/group=20 dist=kappa2 offset=0h rejection_rate=0.0490
+[2026-08-11 01:13:24] groups=3 n/group=20 dist=kappa2 offset=1h rejection_rate=0.1270
+[2026-08-11 01:13:53] groups=3 n/group=20 dist=kappa2 offset=2h rejection_rate=0.4500
+[2026-08-11 01:14:22] groups=3 n/group=20 dist=kappa2 offset=3h rejection_rate=0.8235
+[2026-08-11 01:14:51] groups=3 n/group=20 dist=kappa2 offset=4h rejection_rate=0.9690
+[2026-08-11 01:15:20] groups=3 n/group=20 dist=kappa2 offset=6h rejection_rate=1.0000
+[2026-08-11 01:15:49] groups=3 n/group=20 dist=kappa5 offset=0h rejection_rate=0.0485
+[2026-08-11 01:16:18] groups=3 n/group=20 dist=kappa5 offset=1h rejection_rate=0.3755
+[2026-08-11 01:16:47] groups=3 n/group=20 dist=kappa5 offset=2h rejection_rate=0.9410
+[2026-08-11 01:17:16] groups=3 n/group=20 dist=kappa5 offset=3h rejection_rate=1.0000
+[2026-08-11 01:17:45] groups=3 n/group=20 dist=kappa5 offset=4h rejection_rate=1.0000
+[2026-08-11 01:18:15] groups=3 n/group=20 dist=kappa5 offset=6h rejection_rate=1.0000
+[2026-08-11 01:18:49] groups=3 n/group=50 dist=uniform offset=0h rejection_rate=0.0460
+[2026-08-11 01:19:23] groups=3 n/group=50 dist=uniform offset=1h rejection_rate=0.0430
+[2026-08-11 01:19:57] groups=3 n/group=50 dist=uniform offset=2h rejection_rate=0.0505
+[2026-08-11 01:20:32] groups=3 n/group=50 dist=uniform offset=3h rejection_rate=0.0420
+[2026-08-11 01:21:06] groups=3 n/group=50 dist=uniform offset=4h rejection_rate=0.0515
+[2026-08-11 01:21:40] groups=3 n/group=50 dist=uniform offset=6h rejection_rate=0.0415
+[2026-08-11 01:22:15] groups=3 n/group=50 dist=kappa2 offset=0h rejection_rate=0.0510
+[2026-08-11 01:22:50] groups=3 n/group=50 dist=kappa2 offset=1h rejection_rate=0.3210
+[2026-08-11 01:23:25] groups=3 n/group=50 dist=kappa2 offset=2h rejection_rate=0.8710
+[2026-08-11 01:24:00] groups=3 n/group=50 dist=kappa2 offset=3h rejection_rate=0.9975
+[2026-08-11 01:24:35] groups=3 n/group=50 dist=kappa2 offset=4h rejection_rate=1.0000
+[2026-08-11 01:25:09] groups=3 n/group=50 dist=kappa2 offset=6h rejection_rate=1.0000
+[2026-08-11 01:25:42] groups=3 n/group=50 dist=kappa5 offset=0h rejection_rate=0.0380
+[2026-08-11 01:26:16] groups=3 n/group=50 dist=kappa5 offset=1h rejection_rate=0.7925
+[2026-08-11 01:26:50] groups=3 n/group=50 dist=kappa5 offset=2h rejection_rate=1.0000
+[2026-08-11 01:27:23] groups=3 n/group=50 dist=kappa5 offset=3h rejection_rate=1.0000
+[2026-08-11 01:27:56] groups=3 n/group=50 dist=kappa5 offset=4h rejection_rate=1.0000
+[2026-08-11 01:28:30] groups=3 n/group=50 dist=kappa5 offset=6h rejection_rate=1.0000
+[2026-08-11 01:29:09] groups=3 n/group=100 dist=uniform offset=0h rejection_rate=0.0330
+[2026-08-11 01:29:48] groups=3 n/group=100 dist=uniform offset=1h rejection_rate=0.0480
+[2026-08-11 01:30:27] groups=3 n/group=100 dist=uniform offset=2h rejection_rate=0.0410
+[2026-08-11 01:31:06] groups=3 n/group=100 dist=uniform offset=3h rejection_rate=0.0505
+[2026-08-11 01:31:45] groups=3 n/group=100 dist=uniform offset=4h rejection_rate=0.0485
+[2026-08-11 01:32:24] groups=3 n/group=100 dist=uniform offset=6h rejection_rate=0.0425
+[2026-08-11 01:33:03] groups=3 n/group=100 dist=kappa2 offset=0h rejection_rate=0.0540
+[2026-08-11 01:33:42] groups=3 n/group=100 dist=kappa2 offset=1h rejection_rate=0.5760
+[2026-08-11 01:34:22] groups=3 n/group=100 dist=kappa2 offset=2h rejection_rate=0.9925
+[2026-08-11 01:35:02] groups=3 n/group=100 dist=kappa2 offset=3h rejection_rate=1.0000
+[2026-08-11 01:35:42] groups=3 n/group=100 dist=kappa2 offset=4h rejection_rate=1.0000
+[2026-08-11 01:36:22] groups=3 n/group=100 dist=kappa2 offset=6h rejection_rate=1.0000
+[2026-08-11 01:37:02] groups=3 n/group=100 dist=kappa5 offset=0h rejection_rate=0.0430
+[2026-08-11 01:37:41] groups=3 n/group=100 dist=kappa5 offset=1h rejection_rate=0.9850
+[2026-08-11 01:38:21] groups=3 n/group=100 dist=kappa5 offset=2h rejection_rate=1.0000
+[2026-08-11 01:39:00] groups=3 n/group=100 dist=kappa5 offset=3h rejection_rate=1.0000
+[2026-08-11 01:39:40] groups=3 n/group=100 dist=kappa5 offset=4h rejection_rate=1.0000
+[2026-08-11 01:40:20] groups=3 n/group=100 dist=kappa5 offset=6h rejection_rate=1.0000
+== Robustness grid (unequal concentration, kappa 5 vs 1) ==
+[2026-08-11 01:40:46] n/group=10 rejection_rate=0.1090
+[2026-08-11 01:41:13] n/group=20 rejection_rate=0.1015
+[2026-08-11 01:41:43] n/group=50 rejection_rate=0.1130
+[2026-08-11 01:42:17] n/group=100 rejection_rate=0.1080
+== Numeric-term grid ==
+[2026-08-11 01:42:54] n=10 assoc_hours_per_unit=0 rejection_rate=0.0455
+[2026-08-11 01:43:33] n=10 assoc_hours_per_unit=2 rejection_rate=0.0650
+[2026-08-11 01:44:11] n=10 assoc_hours_per_unit=4 rejection_rate=0.1415
+[2026-08-11 01:44:50] n=10 assoc_hours_per_unit=8 rejection_rate=0.3525
+[2026-08-11 01:45:29] n=20 assoc_hours_per_unit=0 rejection_rate=0.0450
+[2026-08-11 01:46:09] n=20 assoc_hours_per_unit=2 rejection_rate=0.0775
+[2026-08-11 01:46:48] n=20 assoc_hours_per_unit=4 rejection_rate=0.2230
+[2026-08-11 01:47:26] n=20 assoc_hours_per_unit=8 rejection_rate=0.7300
+[2026-08-11 01:48:06] n=50 assoc_hours_per_unit=0 rejection_rate=0.0535
+[2026-08-11 01:48:46] n=50 assoc_hours_per_unit=2 rejection_rate=0.1920
+[2026-08-11 01:49:27] n=50 assoc_hours_per_unit=4 rejection_rate=0.5395
+[2026-08-11 01:50:07] n=50 assoc_hours_per_unit=8 rejection_rate=0.9845
+[2026-08-11 01:50:50] n=100 assoc_hours_per_unit=0 rejection_rate=0.0430
+[2026-08-11 01:51:33] n=100 assoc_hours_per_unit=2 rejection_rate=0.2745
+[2026-08-11 01:52:16] n=100 assoc_hours_per_unit=4 rejection_rate=0.8860
+[2026-08-11 01:52:59] n=100 assoc_hours_per_unit=8 rejection_rate=1.0000
+
+Wrote benchmarks/results/revision_phase_confounding_validation.csv

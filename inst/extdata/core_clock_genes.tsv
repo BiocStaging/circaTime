@@ -1,0 +1,17 @@
+symbol	aliases	source
+ARNTL	BMAL1;MOP3	Takahashi JS. Transcriptional architecture of the mammalian circadian clock. Nat Rev Genet. 2017;18(3):164-179.
+CLOCK		Takahashi JS. Transcriptional architecture of the mammalian circadian clock. Nat Rev Genet. 2017;18(3):164-179.
+NPAS2	MOP4	Takahashi JS. Transcriptional architecture of the mammalian circadian clock. Nat Rev Genet. 2017;18(3):164-179.
+PER1		Takahashi JS. Transcriptional architecture of the mammalian circadian clock. Nat Rev Genet. 2017;18(3):164-179.
+PER2		Takahashi JS. Transcriptional architecture of the mammalian circadian clock. Nat Rev Genet. 2017;18(3):164-179.
+PER3		Takahashi JS. Transcriptional architecture of the mammalian circadian clock. Nat Rev Genet. 2017;18(3):164-179.
+CRY1		Takahashi JS. Transcriptional architecture of the mammalian circadian clock. Nat Rev Genet. 2017;18(3):164-179.
+CRY2		Takahashi JS. Transcriptional architecture of the mammalian circadian clock. Nat Rev Genet. 2017;18(3):164-179.
+NR1D1	REV-ERBA;REVERBA	Takahashi JS. Transcriptional architecture of the mammalian circadian clock. Nat Rev Genet. 2017;18(3):164-179.
+NR1D2	REV-ERBB;REVERBB	Takahashi JS. Transcriptional architecture of the mammalian circadian clock. Nat Rev Genet. 2017;18(3):164-179.
+DBP		Takahashi JS. Transcriptional architecture of the mammalian circadian clock. Nat Rev Genet. 2017;18(3):164-179.
+TEF		Takahashi JS. Transcriptional architecture of the mammalian circadian clock. Nat Rev Genet. 2017;18(3):164-179.
+HLF		Takahashi JS. Transcriptional architecture of the mammalian circadian clock. Nat Rev Genet. 2017;18(3):164-179.
+CIART	CHRONO;GM129;C1ORF51	Anafi RC, Lee Y, Sato TK, et al. Machine learning helps identify CHRONO as a circadian clock component. PLoS Biol. 2014;12(4):e1001840.
+BHLHE40	DEC1;SHARP2;STRA13	Takahashi JS. Transcriptional architecture of the mammalian circadian clock. Nat Rev Genet. 2017;18(3):164-179.
+BHLHE41	DEC2;SHARP1	Takahashi JS. Transcriptional architecture of the mammalian circadian clock. Nat Rev Genet. 2017;18(3):164-179.

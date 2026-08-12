@@ -1,0 +1,208 @@
+- The project is out-of-sync -- use `renv::status()` for details.
+Warning message:
+replacing previous import ‘S4Arrays::makeNindexFromArrayViewport’ by ‘DelayedArray::makeNindexFromArrayViewport’ when loading ‘SummarizedExperiment’ 
+[2026-08-10 19:56:23] tissue=Adr method=timetable
+[2026-08-10 19:56:26] tissue=Adr method=taufisher
+benchmarkPhase: method 'taufisher' fold 6/6 failed (4 test sample(s) set to NA): ℹ In argument: `round(JTK_period) == 24`.
+Caused by error:
+! object 'JTK_period' not found
+[2026-08-10 20:17:07] tissue=Adr method=zeitzeiger
+[2026-08-10 20:17:10] tissue=Adr method=timesignatr
+Loading required package: glmnet
+Loading required package: Matrix
+
+Attaching package: ‘Matrix’
+
+The following object is masked from ‘package:S4Vectors’:
+
+    expand
+
+Loaded glmnet 5.0
+[2026-08-10 20:17:23] tissue=Aor method=timetable
+[2026-08-10 20:17:26] tissue=Aor method=taufisher
+benchmarkPhase: method 'taufisher' fold 6/6 failed (4 test sample(s) set to NA): ℹ In argument: `round(JTK_period) == 24`.
+Caused by error:
+! object 'JTK_period' not found
+[2026-08-10 20:46:32] tissue=Aor method=zeitzeiger
+[2026-08-10 20:46:35] tissue=Aor method=timesignatr
+[2026-08-10 20:46:47] tissue=Bstm method=timetable
+[2026-08-10 20:46:51] tissue=Bstm method=taufisher
+benchmarkPhase: method 'taufisher' fold 6/6 failed (4 test sample(s) set to NA): ℹ In argument: `round(JTK_period) == 24`.
+Caused by error:
+! object 'JTK_period' not found
+[2026-08-10 21:06:57] tissue=Bstm method=zeitzeiger
+[2026-08-10 21:07:00] tissue=Bstm method=timesignatr
+[2026-08-10 21:07:10] tissue=BFat method=timetable
+[2026-08-10 21:07:13] tissue=BFat method=taufisher
+benchmarkPhase: method 'taufisher' fold 6/6 failed (4 test sample(s) set to NA): ℹ In argument: `round(JTK_period) == 24`.
+Caused by error:
+! object 'JTK_period' not found
+[2026-08-10 21:26:17] tissue=BFat method=zeitzeiger
+[2026-08-10 21:26:20] tissue=BFat method=timesignatr
+[2026-08-10 21:26:31] tissue=Cer method=timetable
+[2026-08-10 21:26:34] tissue=Cer method=taufisher
+benchmarkPhase: method 'taufisher' fold 6/6 failed (4 test sample(s) set to NA): ℹ In argument: `round(JTK_period) == 24`.
+Caused by error:
+! object 'JTK_period' not found
+[2026-08-10 21:47:18] tissue=Cer method=zeitzeiger
+[2026-08-10 21:47:21] tissue=Cer method=timesignatr
+[2026-08-10 21:47:32] tissue=Hrt method=timetable
+[2026-08-10 21:47:35] tissue=Hrt method=taufisher
+benchmarkPhase: method 'taufisher' fold 6/6 failed (4 test sample(s) set to NA): ℹ In argument: `round(JTK_period) == 24`.
+Caused by error:
+! object 'JTK_period' not found
+[2026-08-10 22:04:49] tissue=Hrt method=zeitzeiger
+[2026-08-10 22:04:51] tissue=Hrt method=timesignatr
+[2026-08-10 22:05:00] tissue=Hyp method=timetable
+[2026-08-10 22:05:03] tissue=Hyp method=taufisher
+benchmarkPhase: method 'taufisher' fold 6/6 failed (4 test sample(s) set to NA): ℹ In argument: `round(JTK_period) == 24`.
+Caused by error:
+! object 'JTK_period' not found
+[2026-08-10 22:20:41] tissue=Hyp method=zeitzeiger
+[2026-08-10 22:20:44] tissue=Hyp method=timesignatr
+[2026-08-10 22:20:52] tissue=Kid method=timetable
+[2026-08-10 22:20:55] tissue=Kid method=taufisher
+benchmarkPhase: method 'taufisher' fold 6/6 failed (4 test sample(s) set to NA): ℹ In argument: `round(JTK_period) == 24`.
+Caused by error:
+! object 'JTK_period' not found
+[2026-08-10 22:37:11] tissue=Kid method=zeitzeiger
+[2026-08-10 22:37:13] tissue=Kid method=timesignatr
+[2026-08-10 22:37:23] tissue=Liv method=timetable
+[2026-08-10 22:37:25] tissue=Liv method=taufisher
+benchmarkPhase: method 'taufisher' fold 6/6 failed (4 test sample(s) set to NA): ℹ In argument: `round(JTK_period) == 24`.
+Caused by error:
+! object 'JTK_period' not found
+[2026-08-10 22:55:03] tissue=Liv method=zeitzeiger
+[2026-08-10 22:55:06] tissue=Liv method=timesignatr
+[2026-08-10 22:55:17] tissue=Lun method=timetable
+[2026-08-10 22:55:20] tissue=Lun method=taufisher
+benchmarkPhase: method 'taufisher' fold 6/6 failed (4 test sample(s) set to NA): ℹ In argument: `round(JTK_period) == 24`.
+Caused by error:
+! object 'JTK_period' not found
+[2026-08-10 23:16:07] tissue=Lun method=zeitzeiger
+[2026-08-10 23:16:10] tissue=Lun method=timesignatr
+[2026-08-10 23:16:23] tissue=Mus method=timetable
+[2026-08-10 23:16:27] tissue=Mus method=taufisher
+benchmarkPhase: method 'taufisher' fold 6/6 failed (4 test sample(s) set to NA): ℹ In argument: `round(JTK_period) == 24`.
+Caused by error:
+! object 'JTK_period' not found
+[2026-08-10 23:38:00] tissue=Mus method=zeitzeiger
+[2026-08-10 23:38:03] tissue=Mus method=timesignatr
+[2026-08-10 23:38:13] tissue=WFat method=timetable
+[2026-08-10 23:38:17] tissue=WFat method=taufisher
+benchmarkPhase: method 'taufisher' fold 6/6 failed (4 test sample(s) set to NA): ℹ In argument: `round(JTK_period) == 24`.
+Caused by error:
+! object 'JTK_period' not found
+[2026-08-10 23:59:07] tissue=WFat method=zeitzeiger
+[2026-08-10 23:59:10] tissue=WFat method=timesignatr
+There were 50 or more warnings (use warnings() to see the first 50)
+
+== T6: all-available vs. complete-case MAE ==
+ tissue      engine mae_all_available n_all_available mae_complete_case
+    Adr   taufisher         0.6500000              20         0.6500000
+    Adr timesignatr         1.0343078              24         0.9246709
+    Adr   timetable         0.7152778              24         0.6958333
+    Adr  zeitzeiger         1.0014882              24         0.9658159
+    Aor   taufisher         0.4500000              20         0.4500000
+    Aor timesignatr         0.8406656              24         0.8458048
+    Aor   timetable         0.6631944              24         0.5833333
+    Aor  zeitzeiger         0.7495429              24         0.7303396
+   BFat   taufisher         0.5500000              20         0.5500000
+   BFat timesignatr         0.5466310              24         0.5559856
+   BFat   timetable         0.5173611              24         0.5208333
+   BFat  zeitzeiger         0.7937156              24         0.8478383
+   Bstm   taufisher         1.3000000              20         1.3000000
+   Bstm timesignatr         0.8532740              24         0.9198944
+   Bstm   timetable         0.7430556              24         0.7750000
+   Bstm  zeitzeiger         1.1147053              24         1.1464829
+    Cer   taufisher         1.0500000              20         1.0500000
+    Cer timesignatr         0.9902677              24         0.8457060
+    Cer   timetable         0.8958333              24         0.6875000
+    Cer  zeitzeiger         0.9657690              24         0.9306195
+    Hrt   taufisher         0.9500000              20         0.9500000
+    Hrt timesignatr         0.8335856              24         0.7698942
+    Hrt   timetable         0.7569444              24         0.7208333
+    Hrt  zeitzeiger         1.1074571              24         1.0502206
+    Hyp   taufisher         2.1500000              20         2.1500000
+    Hyp timesignatr         0.9107058              24         0.8517099
+    Hyp   timetable         0.9791667              24         0.9083333
+    Hyp  zeitzeiger         1.0490060              24         1.0490523
+    Kid   taufisher         0.9000000              20         0.9000000
+    Kid timesignatr         0.5191174              24         0.4860633
+    Kid   timetable         0.5833333              24         0.5666667
+    Kid  zeitzeiger         0.8353924              24         0.8388057
+    Liv   taufisher         0.9000000              20         0.9000000
+    Liv timesignatr         0.9313002              24         0.9516577
+    Liv   timetable         0.9756944              24         0.9500000
+    Liv  zeitzeiger         1.6803014              24         1.3607108
+    Lun   taufisher         0.6000000              20         0.6000000
+    Lun timesignatr         0.4916035              24         0.4239321
+    Lun   timetable         0.6006944              24         0.5708333
+    Lun  zeitzeiger         0.5622917              24         0.4692384
+    Mus   taufisher         0.6500000              20         0.6500000
+    Mus timesignatr         1.3036615              24         1.0087718
+    Mus   timetable         0.6111111              24         0.6458333
+    Mus  zeitzeiger         1.5453303              24         1.2738644
+   WFat   taufisher         0.6500000              20         0.6500000
+   WFat timesignatr         0.6208927              24         0.5909672
+   WFat   timetable         0.7430556              24         0.7541667
+   WFat  zeitzeiger         0.9942683              24         0.9972334
+ n_complete_case
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+              20
+
+Pooled means:
+       engine mae_all_available mae_complete_case
+1   taufisher         0.9000000         0.9000000
+2 timesignatr         0.8230011         0.7645882
+3   timetable         0.7320602         0.6982639
+4  zeitzeiger         1.0332724         0.9716851
+
+Wrote benchmarks/results/revision_persample_residuals_GSE54650.csv
+Wrote benchmarks/results/revision_complete_case_MAE.csv

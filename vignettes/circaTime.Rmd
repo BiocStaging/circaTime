@@ -1,0 +1,385 @@
+---
+title: "Introduction to circaTime"
+author: "Alperen Uysal"
+date: "`r Sys.Date()`"
+output:
+  BiocStyle::html_document
+vignette: >
+  %\VignetteIndexEntry{Introduction to circaTime}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+```{r libs, message = FALSE}
+library(circaTime)
+library(SummarizedExperiment)
+```
+
+## Why circaTime
+
+Tens of thousands of public RNA-seq samples have no recorded collection time, yet
+circadian phase — the time of sample collection relative to the internal
+clock — can often be recovered computationally from expression data alone.
+Several published methods do this, but each lives in its own repository, takes its
+own input format, and reports its own notion of confidence (usually none at all).
+`circaTime` wraps published phase-inference methods behind a single
+`SummarizedExperiment`-based interface, adds a benchmarking harness so methods can
+be compared on the same labelled ground truth, and adds a calibrated uncertainty
+layer — a confidence interval and a quality flag — rather than a bare point
+estimate.
+
+This vignette walks through the whole pipeline: a raw `SummarizedExperiment`, the
+call that adds phase estimates to it, how to check those estimates against known
+ground truth, what the added confidence columns mean, and how a phased
+`SummarizedExperiment` hands off to downstream rhythmicity analysis.
+
+## The data
+
+The example data bundled with the package is a real subset of GSE54650 (Zhang et
+al. 2014, *PNAS*): mouse liver, 24 samples spanning one full circadian cycle at
+2-hour resolution, full gene set. Real published data was used here specifically so
+every number in this vignette is a real result, not a simulation.
+
+```{r load-data}
+se <- readRDS(system.file("extdata", "example_se.rds", package = "circaTime"))
+se
+```
+
+`colData(se)` happens to carry a `phase` column here because GSE54650's collection
+time is known — that is what lets this vignette also demonstrate benchmarking below.
+Most real-world input to `estimatePhase()` will *not* have this column; that is
+precisely the value the package provides.
+
+```{r show-truth}
+head(colData(se))
+```
+
+## From raw to phased: `estimatePhase()`
+
+`estimatePhase()` is the package's main entry point. It requires a `tissue` (there
+is no default — applying a model trained on one tissue to another silently is a
+bug, not a convenience) and looks up a matching pre-trained reference model.
+`availableReferenceModels()` lists what is currently bundled:
+
+```{r avail}
+availableReferenceModels()
+```
+
+```{r estimate}
+phased <- estimatePhase(se, method = "timetable", tissue = "Liv")
+colData(phased)[, c("phase", "phase_lo", "phase_hi", "clock_amp", "phase_flag")]
+```
+
+Five columns are added: `phase` (the point estimate, hours in `[0, 24)`),
+`phase_lo`/`phase_hi` (a confidence interval — see below), `clock_amp` (core-clock
+amplitude — see below), and `phase_flag` (a quality flag: `"ok"`,
+`"low_amplitude"`, `"gene_coverage"`, or `"failed"`). `estimatePhase()` never
+hard-errors on a difficult individual sample; a sample that cannot be scored gets
+`phase = NA` and an informative flag instead. Only malformed input (an unrecognised
+tissue/species/method combination, or an assay with no gene identifiers) is a hard
+error.
+
+## Not sure which engine to pick? `method = "consensus"`
+
+No engine wins everywhere — across the 12-tissue benchmark below, three different
+engines each win in at least three tissues. Rather than forcing that choice on you,
+`method = "consensus"` runs every engine bundled for that tissue and combines their
+estimates on the circle:
+
+```{r consensus}
+consensus <- estimatePhase(se, method = "consensus", tissue = "Liv")
+colData(consensus)[, c("phase", "phase_lo", "phase_hi", "phase_flag")]
+```
+
+The combination is not a black box. Everything that went into it is returned:
+
+```{r consensus-report}
+report <- S4Vectors::metadata(consensus)$circaTime_consensus
+report$stored_weights      # the trained prior, per engine
+report$per_engine_phase    # what each engine said, per sample
+round(report$concentration, 3)  # how strongly the engines agreed, in [0, 1]
+```
+
+Two weighting schemes are available. The default, `consensus_weights = "accuracy"`,
+weights each engine by `1/cvMAE` using that engine's own held-out error **on this
+specific tissue** (visible as `cv_mae` in `availableReferenceModels()`), so an
+engine that does well on liver but poorly on brainstem is weighted differently in
+each. `consensus_weights = "equal"` is a plain circular mean, useful as the honest
+baseline for whether the accuracy weighting is buying anything. These are two
+separately trained models, not one model with a switch — each carries its own
+confidence interval, measured under its own weighting.
+
+If one engine's genes are missing from your data, its weight drops to zero and the
+rest are renormalised, rather than it contributing an unusable estimate; the result
+is only flagged `"gene_coverage"` if no engine had coverage.
+
+Benchmarked with real donor-split cross-validation across all 12 GSE54650 tissues
+(`benchmarks/run_consensus_benchmark.R`): pooled mean circular MAE was 0.723h
+(accuracy-weighted consensus), 0.726h (equal-weighted), 0.738h (Molecular
+Timetable alone), 0.804h (tauFisher alone) — both consensus schemes beat
+committing to either single engine everywhere, though the two weighting schemes
+are close enough to each other (0.723h vs. 0.726h) that this is not a strong
+argument for tissue-aware weighting specifically over the simpler equal-weighted
+baseline. See `notes/decisions.md` Section 14 for the full accounting, including
+the oracle (best-single-engine-per-tissue, not achievable in practice) comparison.
+
+## Gene identifiers across ID types and species
+
+Real input data does not always arrive as mouse gene symbols. `standardizeGeneIds()`
+auto-detects whether `rownames(se)` are gene symbols, Ensembl IDs, Entrez IDs, or
+RefSeq IDs (per gene, so mixed input is fine), and maps everything to gene symbol —
+the identifier convention every other function in this package uses:
+
+```{r standardize, eval=requireNamespace("org.Mm.eg.db", quietly = TRUE)}
+mixedIds <- SummarizedExperiment(
+  assays = list(logExpr = matrix(rnorm(9), nrow = 3,
+    dimnames = list(c("Arntl", "ENSMUSG00000029238", "11461"), c("s1", "s2", "s3"))))
+)
+mixedIds <- standardizeGeneIds(mixedIds, species = "Mmusculus")
+rownames(mixedIds) # Arntl (already a symbol), Clock (Ensembl), Actb (Entrez)
+```
+
+Two layers do the work. A dependency-free layer runs first: it strips Ensembl
+version suffixes and resolves a small, hand-curated table of common circadian
+clock-gene synonyms (e.g. `BMAL1`/`MOP3` → `ARNTL`, `DEC1` → `BHLHE40`, `CHRONO`/
+`C1orf51` → `CIART`) — curated by hand from HGNC/MGI "previous symbol" and "alias"
+fields for the core clock genes this package's bundled models and QC panel
+actually use, not pulled programmatically from a live database (so it is small,
+auditable in `R/gene-mapping.R`, and does not need a network call). Anything the
+free layer cannot resolve — a real Ensembl/Entrez/RefSeq ID, or a symbol outside
+that curated set — falls through to `AnnotationDbi::mapIds()` against
+`org.Mm.eg.db`/`org.Hs.eg.db` if installed (`Suggests`, not required for the common
+already-symbol case).
+
+Cross-*species* mapping is a separate, harder problem from cross-*ID-type* mapping
+within one species, and `mapOrthologs()` handles it via the `babelgene` package's
+curated one-to-one mouse↔human ortholog tables — a gene with no unambiguous
+ortholog is dropped (`NA`), not guessed at:
+
+```{r orthologs, eval=requireNamespace("babelgene", quietly = TRUE)}
+mapOrthologs(c("Arntl", "Clock", "Per1"), fromSpecies = "Mmusculus", toSpecies = "Hsapiens")
+```
+
+`estimatePhase()` wires this in directly via `data_species`: set it when `se`'s
+genes are in a different species' convention than the bundled model (currently
+mouse-only) you are calling against, e.g. human input data against the bundled
+mouse model. `map_orthologs = TRUE` is the default whenever the two differ, and a
+mapping summary is recorded at `metadata(se)$circaTime_ortholog_mapping`, the same
+way `circaTime_gene_mapping` already records the within-species alias/ID-type
+report.
+
+## How good is this? Benchmarking against known ground truth
+
+Because this example happens to carry real ground truth, we can check point-estimate
+accuracy directly with `benchmarkPhase()`, which cross-validates a method with
+held-out folds split by donor (never by sample, so no individual's data leaks across
+train/test):
+
+```{r benchmark}
+bm <- benchmarkPhase(se, truth_col = "phase", methods = "timetable", nFolds = 5, seed = 1)
+bm$summary
+```
+
+`circular_mae` is mean absolute error on a 24-hour circle — computed as
+`pmin(abs(d), 24 - abs(d))`, since 23.5h and 0.5h are one hour apart, not 23.
+Ordinary (non-circular) statistics are not meaningful on phase and are never used
+anywhere in this package. This result matches what was reported for liver in the
+package's own benchmark suite (`circular_mae` $\approx$ 0.98h across the full
+12-tissue GSE54650 atlas; see the package's `benchmarks/results/` for the complete,
+reproducible table).
+
+`benchmarkPhase()` answers "how accurate is this engine on held-out samples from
+*this* dataset?" A different, complementary question is transfer: "if I train on
+one dataset/platform, how accurate is it on a *different* one?" — e.g. training on
+microarray data and scoring RNA-seq samples of the same tissue. `transferPhase()`
+answers that, reusing the same engine registry and circular-error metrics as
+`benchmarkPhase()`, just with the train/test split fixed by which dataset a sample
+came from instead of drawn as cross-validation folds:
+
+```{r transfer, eval = FALSE}
+seMicroarray <- circaTimeData::circaTimeData("GSE54650") # same study, microarray
+seRnaseq <- circaTimeData::circaTimeData("GSE54651")     # same study, RNA-seq
+liverMicro <- seMicroarray[, SummarizedExperiment::colData(seMicroarray)$tissue == "Liv"]
+liverRnaseq <- seRnaseq[, SummarizedExperiment::colData(seRnaseq)$tissue == "Liv"]
+
+tb <- transferPhase(liverMicro, liverRnaseq, truth_col = "phase", methods = "timetable")
+tb$summary
+```
+
+## Confidence intervals and quality flags
+
+`phase_lo`/`phase_hi` are not a bootstrap refit on every call (that would be far too
+slow for some engines) — they are built from a pool of real, held-out prediction
+residuals collected once when each reference model was trained, added directly to
+the point estimate. This was checked directly against real held-out data: a stated
+80% interval that used only training-resampling variance (no residual pool) covered
+the true phase only about 48% of the time — badly overconfident. Adding the
+residual-pool mechanism brought empirical coverage in line with (in fact slightly
+above) the nominal level at every level tested. An uncalibrated interval is worse
+than none, so this check was treated as a hard requirement, not an afterthought.
+
+`phase_credible_lo`/`phase_credible_hi` is a second, complementary interval: a
+Bayesian (von Mises) credible interval built from the *same* residual pool as
+`phase_lo`/`phase_hi`, via `bayesianPhasePosterior()`. Where the empirical
+interval is the raw quantile spread of the observed residuals, the Bayesian one
+fits a smooth parametric distribution to the pool's concentration and returns
+its analytic interval - useful when a caller needs more than interval endpoints
+(e.g. `bayesianPhasePosterior()` also returns a full posterior density,
+enabling statements like "what is the probability the true phase is within 2h
+of the point estimate"). The two intervals are expected to be close, not
+identical: on real held-out GSE54650 predictions, pooled empirical coverage at
+nominal 80% was 88.9% (Bayesian) vs. 87.2% (bootstrap), with mean widths 2.72h
+vs. 2.78h (`benchmarks/run_bayesian_ci_benchmark.R`). `kappa`/`concentration`
+are recorded in `metadata(se)$circaTime_bayesian`.
+
+```{r bayesian}
+metadata(phased)$circaTime_bayesian
+colData(phased)[, c("phase", "phase_lo", "phase_hi",
+                    "phase_credible_lo", "phase_credible_hi")]
+```
+
+`clock_amp` (`phase_flag == "low_amplitude"` when it falls below threshold) has two
+implementations, selected with `qc_method`:
+
+- `qc_method = "legacy"` (default): the Euclidean norm of a sample's first two
+  principal components over a **fixed** 16-gene core clock panel, projected onto
+  the reference cohort's own PCA basis (works even for a single-sample call).
+  **Honest caveat**: on the two real labelled datasets it was tested against (the
+  healthy-tissue GSE54650 atlas used above, and a young-vs-aged mouse stem cell
+  dataset with real circadian-time ground truth), low-amplitude samples did not
+  show a statistically significant error difference from high-amplitude ones.
+  Core clock *gene* expression is reported in the aging literature to stay close
+  to unaltered while *downstream* oscillators desynchronise — so a fixed
+  core-clock panel may simply be looking at the wrong genes.
+- `qc_method = "dynamic"` (`clockCoherence()`): selects the informative gene
+  panel **from the input dataset itself** — each gene's cosinor fit is tested
+  against a phase-permutation null, panel = genes clearing a BH-FDR cutoff —
+  rather than trusting one fixed panel across every dataset. This needs a real
+  cohort in the call (`qc_min_samples`, default 10) since the panel is fit from
+  it; below that it silently falls back to `"legacy"`
+  (`metadata(se)$circaTime_qc$method_used` records which ran). On the same
+  young-vs-aged dataset where the legacy flag scored p=0.20, the dynamic score
+  reaches a selection-corrected p=0.0185 — see
+  `benchmarks/run_dynamic_qc_benchmark.R` and `notes/decisions.md` Section 15
+  for the full validation and why coherence is a *self-consistency* score (it is
+  scored against `estimatePhase()`'s own phase estimate, not independent ground
+  truth) rather than a general-purpose sample-quality metric.
+
+```{r dynamic-qc}
+se_dyn <- estimatePhase(se, method = "timetable", tissue = "Liv",
+                        qc_method = "dynamic")
+table(colData(se_dyn)$phase_flag)
+metadata(se_dyn)$circaTime_qc[c("method_used", "threshold", "panelSize")]
+```
+
+## Handing off to downstream rhythmicity analysis
+
+A phased `SummarizedExperiment` is meant to be handed straight to existing
+rhythmicity-detection tools rather than re-implementing what they already do. The
+pattern below (illustrative — `limorhyde` and `dryR` are not dependencies of
+`circaTime` and are not installed or executed here) shows the shape of that
+handoff: `circaTime` supplies `colData(se)$phase` as a covariate, the downstream
+tool takes it from there.
+
+```{r downstream, eval = FALSE}
+# Illustrative only - not run as part of this vignette.
+library(limorhyde)
+colData(phased)$time_var <- limorhyde(colData(phased)$phase, colnames(colData(phased)))
+# ... proceed with limorhyde's own differential-rhythmicity workflow, e.g. via limma
+```
+
+## Is circadian time confounding my design?
+
+Most users of this package are not circadian researchers. They have a differential
+expression design — cases versus controls, treated versus untreated — and a
+reasonable worry: the samples' collection times were never recorded, so could an
+unmodelled daily rhythm be driving what looks like a condition effect?
+
+That worry is only justified under a specific condition. Circadian phase biases a
+contrast when it is **unbalanced across the groups being compared**. If collection
+time varies randomly *within* every group, rhythmic genes inflate residual variance
+but leave the condition coefficient unbiased. If the cases happened to be collected
+in the morning and the controls in the afternoon, then every rhythmic gene carries an
+apparent condition effect that is really a clock effect.
+
+`phaseConfounding()` tests exactly that: it asks whether phase is distributed
+unevenly across each term of a design formula.
+
+```{r confounding}
+# A deliberately confounded design: cases collected around ZT6, controls around ZT14.
+set.seed(1)
+n <- 20
+confPhase <- c(rnorm(10, mean = 6, sd = 1), rnorm(10, mean = 14, sd = 1))
+confMat <- matrix(rnorm(100 * n), nrow = 100,
+                  dimnames = list(paste0("g", seq_len(100)), paste0("s", seq_len(n))))
+conf <- SummarizedExperiment(assays = list(logExpr = confMat))
+colData(conf)$phase <- wrapPhase(confPhase)
+colData(conf)$condition <- rep(c("case", "control"), each = 10)
+
+phaseConfounding(conf, ~ condition, nPerm = 999, seed = 1)
+```
+
+The small p-value says the imbalance is real, and `effect_size` puts it in
+interpretable units: the group mean phases sit roughly eight hours apart. Compare
+that with a design where the same samples were collected across the whole day in both
+arms:
+
+```{r confounding-balanced}
+balanced <- conf
+colData(balanced)$phase <- rep(seq(0, 22, by = 2), length.out = n)
+
+phaseConfounding(balanced, ~ condition, nPerm = 999, seed = 1)
+```
+
+Here phase is spread evenly through both groups, and the test says so.
+
+Three things are worth being precise about:
+
+- **Every comparison is circular.** Groups centred on ZT23 and ZT1 are two hours
+  apart, not twenty-two, and both the test statistic and `effect_size` treat them
+  that way. Applying an ordinary ANOVA or t-test to phase values gets this wrong.
+- **The p-value comes from permutation**, not from the usual parametric circular
+  approximations, which assume von Mises phases and equal concentration across
+  groups — assumptions inferred phases routinely violate.
+- **Nothing is corrected for you.** A flagged design is information, not an
+  instruction: whether to add phase as a covariate, drop the affected samples, or
+  simply report the caveat is a modelling decision that belongs to the analyst.
+
+If `se` does not already carry a `phase` column, pass `method` and `tissue` and
+`phaseConfounding()` will call `estimatePhase()` first. Samples whose phase estimate
+was flagged unreliable (`low_amplitude`, `gene_coverage`, `failed`) are excluded from
+the test rather than allowed to add noise to it; the number dropped is reported in
+`attr(result, "nDropped")`.
+
+## What isn't covered yet
+
+This is an early snapshot, and it is worth being explicit about the edges:
+
+- Only mouse (`species = "Mmusculus"`) tissues from GSE54650 are currently bundled;
+  see `availableReferenceModels()` for the exact list. A larger, more
+  tissue/species-diverse reference cohort lives in the separate companion
+  `circaTimeData` ExperimentHub package rather than being bundled directly in
+  `circaTime` itself.
+- `standardizeGeneIds()`/`mapOrthologs()`/`estimatePhase(data_species = )` (above)
+  cover ID-type translation and one-to-one mouse↔human ortholog mapping, but there
+  is still no *bundled reference model* trained on human data to map onto — an
+  ortholog-mapped human sample is currently scored against the mouse model, which
+  is unvalidated cross-species transfer, not a substitute for a real human cohort.
+- `phaseConfounding()` tests each design term separately. Interaction terms are
+  skipped, and a full multivariable circular regression — which would let you ask
+  whether phase is imbalanced across one term *after adjusting for* another — is not
+  implemented.
+- Cross-tissue and cross-platform (microarray vs. RNA-seq vs. pseudobulk) transfer
+  has not yet been measured systematically; applying a model trained on one tissue's
+  platform to a very different one should be treated as unvalidated until it has
+  been.
+
+## Session info
+
+```{r session-info}
+sessionInfo()
+```

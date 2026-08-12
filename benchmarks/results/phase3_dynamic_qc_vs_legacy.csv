@@ -1,0 +1,5 @@
+"dataset","flag","n","spearman_rho","auc_worst_quartile","threshold","frac_flagged","low_mae","high_mae","p_value","p_selection_corrected"
+"GSE54650","legacy_amplitude",288,-0.01,0.491,2.829,0.302,0.772,0.715,0.0812,0.301
+"GSE54650","dynamic_coherence",288,-0.082,0.539,0.54,0.5,0.746,0.718,0.271,0.632
+"GSE84511","legacy_amplitude",48,-0.038,0.625,1.82,0.208,0.8,0.779,0.204,0.46
+"GSE84511","dynamic_coherence",48,-0.276,0.667,0.1,0.167,2.437,0.452,0.00517,0.0185

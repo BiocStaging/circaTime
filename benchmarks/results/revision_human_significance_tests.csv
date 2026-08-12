@@ -1,0 +1,12 @@
+"comparison","test","statistic","p_raw","p_holm","n_subjects","effect_size_h","ci_lo_h","ci_hi_h"
+"Friedman_all_methods","friedman",8.82857142857143,0.031659125044462,NA,14,NA,NA,NA
+"wilcoxon_timetable_vs_zeitzeiger","wilcoxon_paired",NA,0.615518503675301,1,14,0.334665770171564,NA,NA
+"wilcoxon_timetable_vs_timesignatr","wilcoxon_paired",NA,0.0143538943534938,0.071769471767469,14,2.51909147693363,NA,NA
+"wilcoxon_timetable_vs_taufisher","wilcoxon_paired",NA,0.801732212656982,1,14,0.113095238095237,NA,NA
+"wilcoxon_zeitzeiger_vs_timesignatr","wilcoxon_paired",NA,0.0516462183078041,0.206584873231216,14,2.18442570676206,NA,NA
+"wilcoxon_zeitzeiger_vs_taufisher","wilcoxon_paired",NA,1,1,14,-0.221570532076327,NA,NA
+"wilcoxon_timesignatr_vs_taufisher","wilcoxon_paired",NA,0.00694669816590924,0.0416801889954554,14,-2.40599623883839,NA,NA
+"bootstrap_timetable","cluster_bootstrap_subject_10000",NA,NA,NA,14,4.54166666666667,2.91651785714286,6.315625
+"bootstrap_zeitzeiger","cluster_bootstrap_subject_10000",NA,NA,NA,14,4.2070008964951,2.73330193784808,5.64153692722714
+"bootstrap_timesignatr","cluster_bootstrap_subject_10000",NA,NA,NA,14,2.02257518973304,1.21704161262946,2.95969497169063
+"bootstrap_taufisher","cluster_bootstrap_subject_10000",NA,NA,NA,14,4.42857142857143,3.07142857142857,6.07142857142857

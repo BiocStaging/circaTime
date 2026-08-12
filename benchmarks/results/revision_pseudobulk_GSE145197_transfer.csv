@@ -1,0 +1,2 @@
+"dataset","method","n","circular_mae","min_error","max_error"
+"GSE145197","timetable (bundled RNA-seq liver model, no training)",10,2.05833333333333,0.166666666666667,6.25

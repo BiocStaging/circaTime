@@ -1,0 +1,23 @@
+citHeader("To cite circaTime in publications use:")
+
+bibentry(
+  bibtype = "Manual",
+  title   = "circaTime: Unified Inference of Circadian Phase from Bulk and Pseudobulk Transcriptomes",
+  author  = person("Alperen", "Uysal", email = "dralperenuysal@gmail.com",
+                    comment = c(ORCID = "0000-0003-3777-6411")),
+  year    = "2026",
+  note    = "R package version 0.99.0",
+  url     = "https://github.com/dralperenuysal/circaTime"
+)
+
+bibentry(
+  bibtype = "Unpublished",
+  title   = "circaTime: a unified interface for inferring circadian phase from bulk and pseudobulk transcriptomes",
+  author  = person("Alperen", "Uysal", email = "dralperenuysal@gmail.com",
+                    comment = c(ORCID = "0000-0003-3777-6411")),
+  year    = "2026",
+  note    = "Manuscript in preparation"
+)
+
+citFooter("The second entry is a manuscript draft, not yet submitted or published;",
+          "this file will be updated with final publication details once available.")

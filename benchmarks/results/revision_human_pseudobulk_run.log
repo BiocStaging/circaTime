@@ -1,0 +1,48 @@
+- The project is out-of-sync -- use `renv::status()` for details.
+Warning message:
+replacing previous import ‘S4Arrays::makeNindexFromArrayViewport’ by ‘DelayedArray::makeNindexFromArrayViewport’ when loading ‘SummarizedExperiment’ 
+[GSE56931] 130 baseline samples, 14 donors
+[2026-08-11 02:19:33] GSE56931 method=timetable
+[2026-08-11 02:19:37] GSE56931 method=taufisher
+[2026-08-11 02:48:07] GSE56931 method=zeitzeiger
+[2026-08-11 02:48:11] GSE56931 method=timesignatr
+Loading required package: glmnet
+Loading required package: Matrix
+
+Attaching package: ‘Matrix’
+
+The following object is masked from ‘package:S4Vectors’:
+
+    expand
+
+Loaded glmnet 5.0
+
+== GSE56931 (human whole blood, baseline-only, donor-split CV) ==
+  dataset      method   n circular_mae    ci_lo    ci_hi
+ GSE56931   taufisher 130     3.638462 3.146154 4.161731
+ GSE56931 timesignatr 130     1.988261 1.714252 2.281357
+ GSE56931   timetable 130     3.044231 2.599984 3.504487
+ GSE56931  zeitzeiger 130     3.751038 3.202853 4.327925
+
+[GSE145197] 10 samples
+
+== GSE145197 (mouse liver pseudobulk, bundled model, no CV, n=10) ==
+   dataset                                               method  n circular_mae
+ GSE145197 timetable (bundled RNA-seq liver model, no training) 10     2.058333
+ min_error max_error
+ 0.1666667      6.25
+     sample truth       pred flag circular_error
+ GSM4308343     0 23.4166667   ok      0.5833333
+ GSM4308344     0  0.1666667   ok      0.1666667
+ GSM4308345     0 23.8333333   ok      0.1666667
+ GSM4308346     6  5.4166667   ok      0.5833333
+ GSM4308347     6  5.5833333   ok      0.4166667
+ GSM4308348    12 10.0000000   ok      2.0000000
+ GSM4308349    12 10.7500000   ok      1.2500000
+ GSM4308350    12  8.7500000   ok      3.2500000
+ GSM4308351    18 23.9166667   ok      5.9166667
+ GSM4308352    18  0.2500000   ok      6.2500000
+
+Wrote benchmarks/results/revision_human_GSE56931_benchmark.csv
+Wrote benchmarks/results/revision_pseudobulk_GSE145197_transfer.csv
+Wrote benchmarks/results/revision_pseudobulk_GSE145197_persample.csv
