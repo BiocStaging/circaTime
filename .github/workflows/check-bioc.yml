@@ -12,6 +12,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      _R_CHECK_FORCE_SUGGESTS_: false
     steps:
       - uses: actions/checkout@v4
 
@@ -21,12 +22,29 @@ jobs:
         with:
           use-public-rspm: true
 
+      # tauFisher, TimeSignatR and zeitzeiger are Suggests-only, GitHub-only
+      # engines (see notes/decisions.md #2) - not resolvable by pak from
+      # CRAN/Bioconductor, so Suggests is excluded here and the remaining
+      # (CRAN/Bioconductor) Suggests are installed explicitly instead.
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
+          dependencies: '"Depends", "Imports", "LinkingTo"'
           extra-packages: |
             any::rcmdcheck
             any::BiocManager
             any::BiocCheck
+            any::testthat
+            any::knitr
+            any::rmarkdown
+            any::BiocStyle
+            any::GEOquery
+            any::nnet
+            any::AnnotationDbi
+            any::org.Mm.eg.db
+            any::org.Hs.eg.db
+            any::babelgene
+            any::callr
+            any::pkgload
           needs: check
 
       - name: Check
