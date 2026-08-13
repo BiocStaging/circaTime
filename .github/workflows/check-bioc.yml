@@ -28,7 +28,7 @@ jobs:
       # (CRAN/Bioconductor) Suggests are installed explicitly instead.
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          dependencies: '"Depends", "Imports", "LinkingTo"'
+          dependencies: 'c("Depends", "Imports", "LinkingTo")'
           extra-packages: |
             any::rcmdcheck
             any::BiocManager
