@@ -29,17 +29,17 @@ reordered or shrunken gene set.
 }
 }
 \examples{
-\donttest{
-set.seed(1)
-nGenes <- 40; time <- seq(0, 23, by = 1)
-theta <- time / 24 * 2 * pi
-trainMat <- t(sapply(seq_len(nGenes), function(i) {
-  5 + 2 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 0.3)
-}))
-rownames(trainMat) <- paste0("gene", seq_len(nGenes))
-colnames(trainMat) <- paste0("s", seq_len(length(time)))
-fit <- fitTimeSignatR(trainMat, time, seed = 1)
-pred <- predictTimeSignatR(fit, trainMat)
-head(pred)
+if (requireNamespace("TimeSignatR", quietly = TRUE)) {
+  set.seed(1)
+  nGenes <- 40; time <- seq(0, 23, by = 1)
+  theta <- time / 24 * 2 * pi
+  trainMat <- t(sapply(seq_len(nGenes), function(i) {
+    5 + 2 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 0.3)
+  }))
+  rownames(trainMat) <- paste0("gene", seq_len(nGenes))
+  colnames(trainMat) <- paste0("s", seq_len(length(time)))
+  fit <- fitTimeSignatR(trainMat, time, seed = 1)
+  pred <- predictTimeSignatR(fit, trainMat)
+  head(pred)
 }
 }

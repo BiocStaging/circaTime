@@ -39,15 +39,17 @@
 #'   time (`timeTrain`) that `zeitzeigerPredict()` needs at prediction time, the SPC
 #'   result (`spcResult`), `nKnots`, and `period`.
 #' @examples
-#' set.seed(1)
-#' nGenes <- 40; time <- seq(0, 23, by = 1)
-#' theta <- time / 24 * 2 * pi
-#' trainMat <- t(sapply(seq_len(nGenes), function(i) {
-#'   5 + 2 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 0.3)
-#' }))
-#' rownames(trainMat) <- paste0("gene", seq_len(nGenes))
-#' fit <- fitZeitZeiger(trainMat, time)
-#' length(fit$genes)
+#' if (requireNamespace("zeitzeiger", quietly = TRUE)) {
+#'   set.seed(1)
+#'   nGenes <- 40; time <- seq(0, 23, by = 1)
+#'   theta <- time / 24 * 2 * pi
+#'   trainMat <- t(sapply(seq_len(nGenes), function(i) {
+#'     5 + 2 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 0.3)
+#'   }))
+#'   rownames(trainMat) <- paste0("gene", seq_len(nGenes))
+#'   fit <- fitZeitZeiger(trainMat, time)
+#'   length(fit$genes)
+#' }
 #' @export
 fitZeitZeiger <- function(trainMat, trainTime, period = 24, nKnots = 3, nTime = 10,
                            sumabsv = 1, orth = TRUE, useSpc = TRUE) {
@@ -107,16 +109,18 @@ fitZeitZeiger <- function(trainMat, trainTime, period = 24, nKnots = 3, nTime = 
 #'   surface is not converted to a calibrated confidence score here; calibrated
 #'   uncertainty is Phase 3 scope, AGENTS.md Section 9).
 #' @examples
-#' set.seed(1)
-#' nGenes <- 40; time <- seq(0, 23, by = 1)
-#' theta <- time / 24 * 2 * pi
-#' trainMat <- t(sapply(seq_len(nGenes), function(i) {
-#'   5 + 2 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 0.3)
-#' }))
-#' rownames(trainMat) <- paste0("gene", seq_len(nGenes))
-#' fit <- fitZeitZeiger(trainMat, time)
-#' pred <- predictZeitZeiger(fit, trainMat)
-#' head(pred)
+#' if (requireNamespace("zeitzeiger", quietly = TRUE)) {
+#'   set.seed(1)
+#'   nGenes <- 40; time <- seq(0, 23, by = 1)
+#'   theta <- time / 24 * 2 * pi
+#'   trainMat <- t(sapply(seq_len(nGenes), function(i) {
+#'     5 + 2 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 0.3)
+#'   }))
+#'   rownames(trainMat) <- paste0("gene", seq_len(nGenes))
+#'   fit <- fitZeitZeiger(trainMat, time)
+#'   pred <- predictZeitZeiger(fit, trainMat)
+#'   head(pred)
+#' }
 #' @export
 predictZeitZeiger <- function(fit, testMat, nSpc = 2,
                                timeRange = seq(0, 1 - 0.01, 0.01)) {

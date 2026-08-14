@@ -1,3 +1,14 @@
+# circaTime 0.99.2
+
+* The fit/predict examples for the GitHub-only engines (`fitTauFisher()`,
+  `predictTauFisher()`, `fitZeitZeiger()`, `predictZeitZeiger()`,
+  `fitTimeSignatR()`, `predictTimeSignatR()`) are now wrapped in
+  `if (requireNamespace(...))` instead of running unconditionally
+  (ZeitZeiger) or sitting in `\donttest{}`, so `R CMD check` passes on machines
+  that cannot install these engines (r-universe/Bioconductor builders have no
+  GitHub-package access) while still running the examples fully wherever the
+  engines are installed.
+
 # circaTime 0.99.1
 
 * `circularMAE()` and `circularError()` now accept a `period` argument (default

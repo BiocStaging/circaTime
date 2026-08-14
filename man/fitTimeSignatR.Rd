@@ -63,16 +63,16 @@ doing the shrinkage - so \code{\link[=predictTimeSignatR]{predictTimeSignatR()}}
 to be present in \code{testMat}, same all-or-nothing rule as \code{\link[=predictTauFisher]{predictTauFisher()}}.
 }
 \examples{
-\donttest{
-set.seed(1)
-nGenes <- 40; time <- seq(0, 23, by = 1)
-theta <- time / 24 * 2 * pi
-trainMat <- t(sapply(seq_len(nGenes), function(i) {
-  5 + 2 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 0.3)
-}))
-rownames(trainMat) <- paste0("gene", seq_len(nGenes))
-colnames(trainMat) <- paste0("s", seq_len(length(time)))
-fit <- fitTimeSignatR(trainMat, time, seed = 1)
-length(fit$genes)
+if (requireNamespace("TimeSignatR", quietly = TRUE)) {
+  set.seed(1)
+  nGenes <- 40; time <- seq(0, 23, by = 1)
+  theta <- time / 24 * 2 * pi
+  trainMat <- t(sapply(seq_len(nGenes), function(i) {
+    5 + 2 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 0.3)
+  }))
+  rownames(trainMat) <- paste0("gene", seq_len(nGenes))
+  colnames(trainMat) <- paste0("s", seq_len(length(time)))
+  fit <- fitTimeSignatR(trainMat, time, seed = 1)
+  length(fit$genes)
 }
 }

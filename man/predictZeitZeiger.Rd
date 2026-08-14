@@ -40,14 +40,16 @@ computed on a reordered or shrunken gene set (same all-or-nothing rule as
 \code{\link[=predictTauFisher]{predictTauFisher()}}).
 }
 \examples{
-set.seed(1)
-nGenes <- 40; time <- seq(0, 23, by = 1)
-theta <- time / 24 * 2 * pi
-trainMat <- t(sapply(seq_len(nGenes), function(i) {
-  5 + 2 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 0.3)
-}))
-rownames(trainMat) <- paste0("gene", seq_len(nGenes))
-fit <- fitZeitZeiger(trainMat, time)
-pred <- predictZeitZeiger(fit, trainMat)
-head(pred)
+if (requireNamespace("zeitzeiger", quietly = TRUE)) {
+  set.seed(1)
+  nGenes <- 40; time <- seq(0, 23, by = 1)
+  theta <- time / 24 * 2 * pi
+  trainMat <- t(sapply(seq_len(nGenes), function(i) {
+    5 + 2 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 0.3)
+  }))
+  rownames(trainMat) <- paste0("gene", seq_len(nGenes))
+  fit <- fitZeitZeiger(trainMat, time)
+  pred <- predictZeitZeiger(fit, trainMat)
+  head(pred)
+}
 }

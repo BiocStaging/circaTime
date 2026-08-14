@@ -38,16 +38,16 @@
 #'   (`Model`) returned by `train_tauFisher()`, which MetaCycle method supplied the
 #'   genes (`method`), and `period` (always 24).
 #' @examples
-#' \donttest{
-#' set.seed(1)
-#' nGenes <- 40; time <- seq(0, 23, by = 1)
-#' theta <- time / 24 * 2 * pi
-#' trainMat <- t(sapply(seq_len(nGenes), function(i) {
-#'   100 + 40 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 3)
-#' }))
-#' rownames(trainMat) <- paste0("gene", seq_len(nGenes))
-#' fit <- fitTauFisher(trainMat, time, seed = 1)
-#' length(fit$Genes)
+#' if (requireNamespace("tauFisher", quietly = TRUE)) {
+#'   set.seed(1)
+#'   nGenes <- 40; time <- seq(0, 23, by = 1)
+#'   theta <- time / 24 * 2 * pi
+#'   trainMat <- t(sapply(seq_len(nGenes), function(i) {
+#'     100 + 40 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 3)
+#'   }))
+#'   rownames(trainMat) <- paste0("gene", seq_len(nGenes))
+#'   fit <- fitTauFisher(trainMat, time, seed = 1)
+#'   length(fit$Genes)
 #' }
 #' @export
 fitTauFisher <- function(trainMat, trainTime, method = c("JTK", "LS"), thres = 1.01,
@@ -135,17 +135,17 @@ fitTauFisher <- function(trainMat, trainTime, method = c("JTK", "LS"), thres = 1
 #'   every row - tauFisher has no native per-sample confidence signal; calibrated
 #'   uncertainty is Phase 3 scope, AGENTS.md Section 9).
 #' @examples
-#' \donttest{
-#' set.seed(1)
-#' nGenes <- 40; time <- seq(0, 23, by = 1)
-#' theta <- time / 24 * 2 * pi
-#' trainMat <- t(sapply(seq_len(nGenes), function(i) {
-#'   100 + 40 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 3)
-#' }))
-#' rownames(trainMat) <- paste0("gene", seq_len(nGenes))
-#' fit <- fitTauFisher(trainMat, time, seed = 1)
-#' pred <- predictTauFisher(fit, trainMat)
-#' head(pred)
+#' if (requireNamespace("tauFisher", quietly = TRUE)) {
+#'   set.seed(1)
+#'   nGenes <- 40; time <- seq(0, 23, by = 1)
+#'   theta <- time / 24 * 2 * pi
+#'   trainMat <- t(sapply(seq_len(nGenes), function(i) {
+#'     100 + 40 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 3)
+#'   }))
+#'   rownames(trainMat) <- paste0("gene", seq_len(nGenes))
+#'   fit <- fitTauFisher(trainMat, time, seed = 1)
+#'   pred <- predictTauFisher(fit, trainMat)
+#'   head(pred)
 #' }
 #' @export
 predictTauFisher <- function(fit, testMat, minGenes = 2) {

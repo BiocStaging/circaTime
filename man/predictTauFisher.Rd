@@ -32,16 +32,16 @@ Calls the authors' own \code{tauFisher::test_tauFisher()}. Unlike \code{train_ta
 this step is deterministic given the fitted model (no RNG use).
 }
 \examples{
-\donttest{
-set.seed(1)
-nGenes <- 40; time <- seq(0, 23, by = 1)
-theta <- time / 24 * 2 * pi
-trainMat <- t(sapply(seq_len(nGenes), function(i) {
-  100 + 40 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 3)
-}))
-rownames(trainMat) <- paste0("gene", seq_len(nGenes))
-fit <- fitTauFisher(trainMat, time, seed = 1)
-pred <- predictTauFisher(fit, trainMat)
-head(pred)
+if (requireNamespace("tauFisher", quietly = TRUE)) {
+  set.seed(1)
+  nGenes <- 40; time <- seq(0, 23, by = 1)
+  theta <- time / 24 * 2 * pi
+  trainMat <- t(sapply(seq_len(nGenes), function(i) {
+    100 + 40 * cos(theta - runif(1, 0, 2 * pi)) + rnorm(length(time), sd = 3)
+  }))
+  rownames(trainMat) <- paste0("gene", seq_len(nGenes))
+  fit <- fitTauFisher(trainMat, time, seed = 1)
+  pred <- predictTauFisher(fit, trainMat)
+  head(pred)
 }
 }
