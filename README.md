@@ -4,8 +4,8 @@ A unified [Bioconductor](https://bioconductor.org) interface for inferring circa
 phase (time of sample collection relative to the internal clock) from bulk and
 donor-level pseudobulk transcriptomes.
 
-**Status: in development, not yet submitted to Bioconductor.** See
-[Installation](#installation) below for how to install in the meantime.
+**Status: submitted to Bioconductor.**
+See [Installation](#installation) below for how to install in the meantime.
 
 ## Why
 
@@ -26,8 +26,8 @@ trained on one species and platform score data from another.
 
 ## Installation
 
-`circaTime` is still in development and has not yet been submitted to Bioconductor.
-Until it is accepted, install the development version directly from GitHub:
+`circaTime` has been submitted to Bioconductor and has not yet been accepted.
+Until it is, install the development version directly from GitHub:
 
 ```r
 if (!requireNamespace("remotes", quietly = TRUE)) {
@@ -131,17 +131,18 @@ twenty-two) and p-values come from permutation rather than parametric approximat
 Reference models currently bundled for `estimatePhase()` are trained on GSE54650
 (Zhang et al. 2014, *PNAS*; mouse microarray) and GSE54651 (same study, RNA-seq).
 The microarray set covers all 12 of GSE54650's tissues and two engines —
-Molecular Timetable and tauFisher, plus their `"consensus"` combination — while
-the RNA-seq set bundles Molecular Timetable only (select with
-`estimatePhase(platform = "rnaseq")`). ZeitZeiger and TimeSignatR are
+Molecular Timetable and tauFisher, plus their consensus combinations (two
+weighting schemes, reachable via `estimatePhase(method = "consensus",
+consensus_weights = ...)`) — while the RNA-seq set bundles Molecular Timetable
+only (select with `estimatePhase(platform = "rnaseq")`). ZeitZeiger and TimeSignatR are
 wrapped and usable through their `fit*()`/`predict*()` functions and
 `benchmarkPhase()`/`transferPhase()`, but are deliberately not bundled as
 pre-trained `estimatePhase()` models (their fitted objects are much larger for no
 measured accuracy benefit). Call `availableReferenceModels()` for the exact current
-list. Additional labelled cohorts (human whole blood, mouse liver single-cell
-pseudobulk) used for benchmarking and transfer testing, but not yet bundled as
-trained reference models, are distributed via the companion
-[`circaTimeData`](https://github.com/dralperenuysal/circaTimeData) package.
+list. Additional labelled cohorts (human whole blood, GSE56931; mouse liver
+single-cell pseudobulk, GSE145197) used for benchmarking and transfer testing,
+but not yet bundled as trained reference models, will be distributed through a
+companion `circaTimeData` ExperimentHub package (in preparation, not yet public).
 
 ## License
 

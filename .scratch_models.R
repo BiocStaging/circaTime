@@ -1,0 +1,7 @@
+suppressMessages(pkgload::load_all(".", quiet = TRUE))
+m <- availableReferenceModels()
+print(table(m$platform, m$method))
+print(table(m$platform, m$species))
+cat("tissues per platform:\n")
+print(tapply(m$tissue, m$platform, function(x) paste(sort(unique(x)), collapse = ", ")))
+cat("n rows:", nrow(m), "\n")
