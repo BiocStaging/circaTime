@@ -18,8 +18,8 @@ List the bundled reference models available to \code{\link[=estimatePhase]{estim
 }
 \details{
 This list is the exhaustive set of models \code{\link[=estimatePhase]{estimatePhase()}} can use.
-It is currently \code{species = "Mmusculus"} only, covering 8 of GSE54650's 12
-tissues (Cer, Hrt, Hyp, Kid, Liv, Lun, Mus, WFat): Molecular Timetable and
+It is currently \code{species = "Mmusculus"} only, covering all 12 GSE54650
+tissues: Molecular Timetable and
 tauFisher, plus their \code{consensus_accuracy}/\code{consensus_equal} combinations, on
 \code{platform = "microarray"}, and Molecular Timetable only on
 \code{platform = "rnaseq"}. ZeitZeiger and TimeSignatR are wrapped engines but are
