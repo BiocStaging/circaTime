@@ -154,6 +154,53 @@ test_that("benchmarkPhase errors on a missing truth_col", {
                "not found in colData")
 })
 
+test_that("benchmarkPhase threads `period` through to the engine's fit (12h cycle)", {
+  set.seed(1)
+  nGenes <- 40; nSamples <- 48
+  time <- stats::runif(nSamples, 0, 12)
+  theta <- time / 12 * 2 * pi
+  truePhase <- stats::runif(nGenes, 0, 2 * pi)
+  mat <- t(vapply(seq_len(nGenes), function(i) {
+    5 + 2 * cos(theta - truePhase[i]) + stats::rnorm(nSamples, sd = 0.15)
+  }, numeric(nSamples)))
+  rownames(mat) <- paste0("gene", seq_len(nGenes))
+  colnames(mat) <- paste0("s", seq_len(nSamples))
+  se <- SummarizedExperiment::SummarizedExperiment(
+    assays = list(expr = mat),
+    colData = S4Vectors::DataFrame(phase = time, row.names = colnames(mat))
+  )
+
+  bm <- benchmarkPhase(se, truth_col = "phase", methods = "timetable",
+                       assay_name = "expr", nFolds = 4, seed = 1, period = 12,
+                       engineArgs = list(timetable = list(fit = list(nGenes = 15, minCor = 0.3))))
+
+  # random guessing on a 12h circle has an expected circular MAE of 3h
+  expect_lt(bm$summary$circular_mae, 3)
+  expect_true(all(bm$residuals$pred < 12, na.rm = TRUE))
+})
+
+test_that("benchmarkPhase warns when a 24h-only engine is asked for a non-24h period", {
+  se <- makeSyntheticSE()
+  engine24 <- list(
+    fit = function(trainMat, trainTime, ...) list(genes = rownames(trainMat)[1:5]),
+    predict = function(fit, testMat, ...) {
+      data.frame(sample = colnames(testMat), phase = rep(12, ncol(testMat)),
+                 confidence = NA_real_)
+    },
+    supervised = TRUE,
+    supportsPeriod = FALSE
+  )
+  oldRegistry <- circaTime:::.circaTimeEngines
+  on.exit(utils::assignInNamespace(".circaTimeEngines", oldRegistry, ns = "circaTime"), add = TRUE)
+  utils::assignInNamespace(".circaTimeEngines", c(oldRegistry, list(engine24 = engine24)), ns = "circaTime")
+
+  expect_warning(
+    benchmarkPhase(se, truth_col = "phase", methods = "engine24", assay_name = "expr",
+                   nFolds = 2, period = 12),
+    "inherently 24-hour"
+  )
+})
+
 # ---- transferPhase() (AGENTS.md Section 5 Step 2.2) ----
 
 test_that("transferPhase fits on one dataset, scores on another, and beats random guessing", {

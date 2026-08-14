@@ -17,6 +17,7 @@ vignettes/*.pdf
 inst/doc/
 notes/
 .claude
+.codewhale/
 .Rprofile
 AGENTS.md
 

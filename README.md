@@ -129,12 +129,18 @@ twenty-two) and p-values come from permutation rather than parametric approximat
 | TimeSignatR | Braun et al. 2018, *PNAS* | Wraps the authors' own R package (optional install, see above) |
 
 Reference models currently bundled for `estimatePhase()` are trained on GSE54650
-(Zhang et al. 2014, *PNAS*; 12 mouse tissues, microarray, all four engines) and
-GSE54651 (same study, RNA-seq, Molecular Timetable only — select with
-`estimatePhase(platform = "rnaseq")`) — call `availableReferenceModels()` for the
-exact current list. Additional labelled cohorts (human whole blood, mouse liver
-single-cell pseudobulk) used for benchmarking and transfer testing, but not yet
-bundled as trained reference models, are distributed via the companion
+(Zhang et al. 2014, *PNAS*; mouse microarray) and GSE54651 (same study, RNA-seq).
+The microarray set covers 8 of GSE54650's 12 tissues (Cer, Hrt, Hyp, Kid, Liv,
+Lun, Mus, WFat) and two engines — Molecular Timetable and tauFisher, plus their
+`"consensus"` combination — while the RNA-seq set bundles Molecular Timetable only
+(select with `estimatePhase(platform = "rnaseq")`). ZeitZeiger and TimeSignatR are
+wrapped and usable through their `fit*()`/`predict*()` functions and
+`benchmarkPhase()`/`transferPhase()`, but are deliberately not bundled as
+pre-trained `estimatePhase()` models (their fitted objects are much larger for no
+measured accuracy benefit). Call `availableReferenceModels()` for the exact current
+list. Additional labelled cohorts (human whole blood, mouse liver single-cell
+pseudobulk) used for benchmarking and transfer testing, but not yet bundled as
+trained reference models, are distributed via the companion
 [`circaTimeData`](https://github.com/dralperenuysal/circaTimeData) package.
 
 ## License

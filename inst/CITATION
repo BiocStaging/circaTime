@@ -6,7 +6,7 @@ bibentry(
   author  = person("Alperen", "Uysal", email = "dralperenuysal@gmail.com",
                     comment = c(ORCID = "0000-0003-3777-6411")),
   year    = "2026",
-  note    = "R package version 0.99.0",
+  note    = "R package version 0.99.1",
   url     = "https://github.com/dralperenuysal/circaTime"
 )
 

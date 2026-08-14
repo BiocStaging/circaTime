@@ -4,8 +4,11 @@
 #
 # Engine registry: each entry is a list(fit = function(trainMat, trainTime, ...),
 # predict = function(fit, testMat, ...) -> data.frame(sample, phase, confidence),
-# supervised = TRUE/FALSE). Unsupervised engines get their held-out predictions
-# aligned to truth via circularAlign() before scoring,
+# supervised = TRUE/FALSE, supportsPeriod = TRUE/FALSE). supportsPeriod records
+# whether that engine's fit() accepts a `period` argument (stored on the fit object
+# its predict() reads back) - timetable, zeitzeiger and timesignatr do; tauFisher is
+# inherently hour-based / 24h-only and has none. Unsupervised engines get their
+# held-out predictions aligned to truth via circularAlign() before scoring,
 # per AGENTS.md 7.2; supervised engines (Phase 1: timetable) do not need this, since
 # they are trained directly on absolute time and have no rotation ambiguity.
 
@@ -13,22 +16,26 @@
   timetable = list(
     fit = function(trainMat, trainTime, ...) fitMolecularTimetable(trainMat, trainTime, ...),
     predict = function(fit, testMat, ...) predictMolecularTimetable(fit, testMat, ...),
-    supervised = TRUE
+    supervised = TRUE,
+    supportsPeriod = TRUE
   ),
   taufisher = list(
     fit = function(trainMat, trainTime, ...) fitTauFisher(trainMat, trainTime, ...),
     predict = function(fit, testMat, ...) predictTauFisher(fit, testMat, ...),
-    supervised = TRUE
+    supervised = TRUE,
+    supportsPeriod = FALSE
   ),
   zeitzeiger = list(
     fit = function(trainMat, trainTime, ...) fitZeitZeiger(trainMat, trainTime, ...),
     predict = function(fit, testMat, ...) predictZeitZeiger(fit, testMat, ...),
-    supervised = TRUE
+    supervised = TRUE,
+    supportsPeriod = TRUE
   ),
   timesignatr = list(
     fit = function(trainMat, trainTime, ...) fitTimeSignatR(trainMat, trainTime, ...),
     predict = function(fit, testMat, ...) predictTimeSignatR(fit, testMat, ...),
-    supervised = TRUE
+    supervised = TRUE,
+    supportsPeriod = TRUE
   )
 )
 
@@ -59,6 +66,29 @@
   unname(foldByDonor[as.character(donors)])
 }
 
+# Threads a benchmark's `period` through to an engine's fit call for engines that
+# model a configurable cycle length (their fit stores `period` on the returned fit
+# object, which their predict reads back). Engines flagged supportsPeriod = FALSE
+# (tauFisher) have no `period` argument and are inherently 24-hour; asking them for
+# a non-24h cycle is a warning, not an error - their predictions simply stay on
+# [0, 24). Engines without a supportsPeriod flag (e.g. custom engines injected in
+# tests) are treated as not supporting period, so no `period` is injected and no
+# warning fires for the default 24h case.
+.threadPeriod <- function(engine, fitArgs, period, method, caller) {
+  if (isTRUE(engine$supportsPeriod) && !"period" %in% names(fitArgs)) {
+    fitArgs <- c(fitArgs, list(period = period))
+  } else if (!isTRUE(engine$supportsPeriod) && period != 24) {
+    warning(
+      sprintf(
+        "%s: method '%s' has no `period` argument (inherently 24-hour); its predictions stay on [0, 24) and are not comparable to period = %s",
+        caller, method, period
+      ),
+      call. = FALSE
+    )
+  }
+  fitArgs
+}
+
 #' Cross-validated benchmark of phase-inference engines against ground truth
 #'
 #' @param se A `SummarizedExperiment` with an expression assay (genes x samples)
@@ -73,7 +103,12 @@
 #'   donor - only appropriate for datasets with no repeated-measures structure (see
 #'   `inst/scripts/ingest_GSE54650.R` for a worked justification).
 #' @param nFolds Number of cross-validation folds, split by donor (default 5).
-#' @param period Length of the cycle (default 24).
+#' @param period Length of the cycle (default 24). Passed through to every engine
+#'   whose `fit` accepts a `period` argument (Molecular Timetable, ZeitZeiger,
+#'   TimeSignatR), which stores it on the fit object its `predict` reads back.
+#'   tauFisher has no `period` argument and is inherently 24-hour: requesting
+#'   `period != 24` with `"taufisher"` emits a warning, and its predictions stay
+#'   on `[0, 24)`.
 #' @param seed Optional integer seed for reproducible fold assignment; see
 #'   [.assignDonorFolds()] for how the global RNG state is protected.
 #' @param engineArgs Named list, keyed by method, of extra arguments to pass to
@@ -152,6 +187,8 @@ benchmarkPhase <- function(se, truth_col, methods = "timetable", assay_name = NU
     predictArgs <- engineArgs[[m]]$predict
     if (is.null(predictArgs)) predictArgs <- list()
 
+    fitArgs <- .threadPeriod(engine, fitArgs, period, m, "benchmarkPhase")
+
     for (k in seq_len(nFolds)) {
       trainIdx <- which(fold != k)
       testIdx <- which(fold == k)
@@ -204,7 +241,7 @@ benchmarkPhase <- function(se, truth_col, methods = "timetable", assay_name = NU
         fold = k,
         truth = testTruth,
         pred = predPhase,
-        circular_error = circularError(predPhase, testTruth),
+        circular_error = circularError(predPhase, testTruth, period = period),
         aligned = aligned,
         fold_failed = foldFailed
       )
@@ -252,7 +289,12 @@ benchmarkPhase <- function(se, truth_col, methods = "timetable", assay_name = NU
 #' @param methods Character vector of engine names; see [benchmarkPhase()].
 #' @param train_assay_name,test_assay_name Assay to use in `trainSe`/`testSe`
 #'   respectively; each defaults to that object's first assay.
-#' @param period Length of the cycle (default 24).
+#' @param period Length of the cycle (default 24). Passed through to every engine
+#'   whose `fit` accepts a `period` argument (Molecular Timetable, ZeitZeiger,
+#'   TimeSignatR), which stores it on the fit object its `predict` reads back.
+#'   tauFisher has no `period` argument and is inherently 24-hour: requesting
+#'   `period != 24` with `"taufisher"` emits a warning, and its predictions stay
+#'   on `[0, 24)`.
 #' @param engineArgs Named list, keyed by method, of extra arguments to pass to
 #'   that engine's `fit` and `predict` functions; see [benchmarkPhase()].
 #' @return A list with two elements: `summary`, a `data.frame` with one row per
@@ -330,6 +372,8 @@ transferPhase <- function(trainSe, testSe, truth_col, methods = "timetable",
     predictArgs <- engineArgs[[m]]$predict
     if (is.null(predictArgs)) predictArgs <- list()
 
+    fitArgs <- .threadPeriod(engine, fitArgs, period, m, "transferPhase")
+
     fitResult <- tryCatch(
       {
         fitObj <- do.call(engine$fit, c(list(trainMat = trainMat, trainTime = trainTime), fitArgs))
@@ -360,7 +404,7 @@ transferPhase <- function(trainSe, testSe, truth_col, methods = "timetable",
       sample = sampleNames,
       truth = testTruth,
       pred = predPhase,
-      circular_error = circularError(predPhase, testTruth),
+      circular_error = circularError(predPhase, testTruth, period = period),
       aligned = aligned,
       failed = failed
     )

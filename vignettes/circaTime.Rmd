@@ -1,7 +1,6 @@
 ---
 title: "Introduction to circaTime"
 author: "Alperen Uysal"
-date: "`r Sys.Date()`"
 output:
   BiocStyle::html_document
 vignette: >
@@ -85,19 +84,27 @@ error.
 
 ## Not sure which engine to pick? `method = "consensus"`
 
-No engine wins everywhere — across the 12-tissue benchmark below, three different
-engines each win in at least three tissues. Rather than forcing that choice on you,
-`method = "consensus"` runs every engine bundled for that tissue and combines their
-estimates on the circle:
+No engine wins everywhere — across the package's full 12-tissue GSE54650 benchmark
+(`benchmarks/run_consensus_benchmark.R`), three different engines each win in at
+least three tissues. Rather than forcing that choice on you,
+`method = "consensus"` runs every engine bundled for that tissue (for mouse
+microarray: Molecular Timetable and tauFisher) and combines their estimates on the
+circle:
 
-```{r consensus, eval=requireNamespace("tauFisher", quietly=TRUE)}
+The two chunks below are shown but not executed here: `method = "consensus"`
+combines `timetable` with `tauFisher`, and `tauFisher` is a GitHub-only package
+(`Suggests`, not installed by Bioconductor's or r-universe's build system). Install
+it locally (`remotes::install_github("micnngo/tauFisher")`) and re-run these chunks
+to see the real numbers.
+
+```{r consensus, eval = FALSE}
 consensus <- estimatePhase(se, method = "consensus", tissue = "Liv")
 colData(consensus)[, c("phase", "phase_lo", "phase_hi", "phase_flag")]
 ```
 
 The combination is not a black box. Everything that went into it is returned:
 
-```{r consensus-report, eval=requireNamespace("tauFisher", quietly=TRUE)}
+```{r consensus-report, eval = FALSE}
 report <- S4Vectors::metadata(consensus)$circaTime_consensus
 report$stored_weights      # the trained prior, per engine
 report$per_engine_phase    # what each engine said, per sample

@@ -12,6 +12,16 @@
 #'   not measured), `n_amp_genes`, `n_residual_draws`. Rows whose `method` starts
 #'   with `consensus_` are the combined models reachable via
 #'   `estimatePhase(method = "consensus", consensus_weights = ...)`.
+#' @details This list is the exhaustive set of models [estimatePhase()] can use.
+#'   It is currently `species = "Mmusculus"` only, covering 8 of GSE54650's 12
+#'   tissues (Cer, Hrt, Hyp, Kid, Liv, Lun, Mus, WFat): Molecular Timetable and
+#'   tauFisher, plus their `consensus_accuracy`/`consensus_equal` combinations, on
+#'   `platform = "microarray"`, and Molecular Timetable only on
+#'   `platform = "rnaseq"`. ZeitZeiger and TimeSignatR are wrapped engines but are
+#'   deliberately absent here: they are reachable through [fitZeitZeiger()]/
+#'   [predictZeitZeiger()], [fitTimeSignatR()]/[predictTimeSignatR()],
+#'   [benchmarkPhase()], and [transferPhase()] rather than as pre-trained
+#'   `estimatePhase()` models.
 #' @examples
 #' availableReferenceModels()
 #' @export

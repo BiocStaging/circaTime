@@ -4,11 +4,13 @@
 \alias{circularError}
 \title{Per-sample circular absolute error}
 \usage{
-circularError(pred, truth)
+circularError(pred, truth, period = 24)
 }
 \arguments{
-\item{pred, truth}{Numeric vectors of phase values in \verb{[0, 24)}. \code{NA} entries
+\item{pred, truth}{Numeric vectors of phase values in \verb{[0, period)}. \code{NA} entries
 are dropped pairwise before averaging.}
+
+\item{period}{Length of the cycle (default 24, for hours).}
 }
 \value{
 Numeric vector of per-sample circular absolute errors.

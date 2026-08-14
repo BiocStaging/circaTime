@@ -1,5 +1,6 @@
 ^circaTime\.Rproj$
 ^\.Rproj\.user$
+^\.Rprofile$
 ^notes$
 ^benchmarks$
 ^\.github$
@@ -7,5 +8,7 @@
 ^renv$
 ^renv\.lock$
 ^\.claude$
+^\.codewhale$
 ^LICENSE\.md$
 ^paper$
+\.tar\.gz$

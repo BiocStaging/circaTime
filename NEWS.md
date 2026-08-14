@@ -1,3 +1,17 @@
+# circaTime 0.99.1
+
+* `circularMAE()` and `circularError()` now accept a `period` argument (default
+  24) and compute `pmin(abs(d), period - abs(d))` instead of hardcoding 24 hours;
+  `benchmarkPhase()`, `transferPhase()`, and `circularAlign()` now pass their own
+  `period` through to these metrics, so a non-24h cycle is scored on the requested
+  cycle length. No behaviour change for the default 24h case.
+* `benchmarkPhase()` and `transferPhase()` now also pass their `period` through to
+  each engine's `fit` for engines that accept one (Molecular Timetable, ZeitZeiger,
+  TimeSignatR), so the predictions themselves are produced on the requested cycle
+  length rather than just the error metrics. tauFisher is inherently 24-hour and
+  has no `period` argument; requesting a non-24h cycle with `"taufisher"` now
+  emits a warning instead of silently returning 24h-scale predictions.
+
 # circaTime 0.99.0
 
 * Initial pre-release version.

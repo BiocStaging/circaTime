@@ -35,7 +35,12 @@ donor - only appropriate for datasets with no repeated-measures structure (see
 
 \item{nFolds}{Number of cross-validation folds, split by donor (default 5).}
 
-\item{period}{Length of the cycle (default 24).}
+\item{period}{Length of the cycle (default 24). Passed through to every engine
+whose \code{fit} accepts a \code{period} argument (Molecular Timetable, ZeitZeiger,
+TimeSignatR), which stores it on the fit object its \code{predict} reads back.
+tauFisher has no \code{period} argument and is inherently 24-hour: requesting
+\code{period != 24} with \code{"taufisher"} emits a warning, and its predictions stay
+on \verb{[0, 24)}.}
 
 \item{seed}{Optional integer seed for reproducible fold assignment; see
 \code{\link[=.assignDonorFolds]{.assignDonorFolds()}} for how the global RNG state is protected.}

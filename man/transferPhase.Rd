@@ -28,7 +28,12 @@ same tissue). Their gene panels need not match exactly.}
 \item{train_assay_name, test_assay_name}{Assay to use in \code{trainSe}/\code{testSe}
 respectively; each defaults to that object's first assay.}
 
-\item{period}{Length of the cycle (default 24).}
+\item{period}{Length of the cycle (default 24). Passed through to every engine
+whose \code{fit} accepts a \code{period} argument (Molecular Timetable, ZeitZeiger,
+TimeSignatR), which stores it on the fit object its \code{predict} reads back.
+tauFisher has no \code{period} argument and is inherently 24-hour: requesting
+\code{period != 24} with \code{"taufisher"} emits a warning, and its predictions stay
+on \verb{[0, 24)}.}
 
 \item{engineArgs}{Named list, keyed by method, of extra arguments to pass to
 that engine's \code{fit} and \code{predict} functions; see \code{\link[=benchmarkPhase]{benchmarkPhase()}}.}

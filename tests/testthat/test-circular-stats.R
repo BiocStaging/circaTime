@@ -53,6 +53,15 @@ test_that("circularError is the per-sample vector version of circularMAE", {
   expect_equal(mean(circularError(pred, truth)), circularMAE(pred, truth))
 })
 
+test_that("circularMAE and circularError honour a non-default period", {
+  # On a 12-hour cycle, 11 vs 0 wrap around to be 1 apart, not 11.
+  expect_equal(circularError(11, 0, period = 12), 1)
+  expect_equal(circularMAE(11, 0, period = 12), 1)
+  # Default period remains 24: 23 vs 1 is 2 apart (not 22).
+  expect_equal(circularError(23, 1), 2)
+  expect_equal(circularMAE(23, 1), 2)
+})
+
 test_that("circularMean wraps around correctly (23 and 1 average to ~0, not 12)", {
   expect_equal(round(circularMean(c(23, 1)), 6), 0)
   expect_equal(round(circularMean(c(0, 0, 0)), 6), 0)

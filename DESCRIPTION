@@ -1,7 +1,7 @@
 Package: circaTime
 Type: Package
 Title: Unified Inference of Circadian Phase from Bulk and Pseudobulk Transcriptomes
-Version: 0.99.0
+Version: 0.99.1
 Authors@R: person("Alperen", "Uysal", role = c("aut", "cre"),
     email = "dralperenuysal@gmail.com",
     comment = c(ORCID = "0000-0003-3777-6411"))
@@ -21,13 +21,14 @@ Roxygen: list(markdown = TRUE)
 biocViews: Software, GeneExpression, Transcriptomics, Sequencing, Microarray,
     TimeCourse, Preprocessing
 Depends:
-    R (>= 4.5)
+    R (>= 4.4)
 Imports:
     graphics,
     S4Vectors,
     SummarizedExperiment,
     methods,
     stats,
+    utils,
     withr
 Suggests:
     testthat (>= 3.0.0),

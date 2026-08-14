@@ -34,18 +34,19 @@ circularDiff <- function(pred, truth, period = 24) {
 #' `pmin(abs(d), period - abs(d))` where `d = pred - truth`, so that e.g. a
 #' prediction of 23.5 against a truth of 0.5 counts as 1 hour of error, not 23.
 #'
-#' @param pred,truth Numeric vectors of phase values in `[0, 24)`. `NA` entries
+#' @param pred,truth Numeric vectors of phase values in `[0, period)`. `NA` entries
 #'   are dropped pairwise before averaging.
+#' @param period Length of the cycle (default 24, for hours).
 #' @param na.rm Logical; if `FALSE` (default `TRUE`), `NA` in either input makes the
 #'   result `NA` instead of being dropped.
 #' @return A single numeric value: the mean circular absolute error.
 #' @examples
 #' circularMAE(c(0.5, 12), c(23.5, 0))
 #' @export
-circularMAE <- function(pred, truth, na.rm = TRUE) {
+circularMAE <- function(pred, truth, period = 24, na.rm = TRUE) {
   stopifnot(length(pred) == length(truth))
   d <- pred - truth
-  err <- pmin(abs(d), 24 - abs(d))
+  err <- pmin(abs(d), period - abs(d))
   mean(err, na.rm = na.rm)
 }
 
@@ -59,10 +60,10 @@ circularMAE <- function(pred, truth, na.rm = TRUE) {
 #' @examples
 #' circularError(c(0.5, 12), c(23.5, 0))
 #' @export
-circularError <- function(pred, truth) {
+circularError <- function(pred, truth, period = 24) {
   stopifnot(length(pred) == length(truth))
   d <- pred - truth
-  pmin(abs(d), 24 - abs(d))
+  pmin(abs(d), period - abs(d))
 }
 
 #' Circular mean direction
@@ -384,7 +385,7 @@ circularAlign <- function(est, ref, period = 24, allow_reflection = TRUE) {
   fitOrientation <- function(candidate) {
     rotation <- circularMean(ref[keep] - candidate[keep], period = period)
     aligned <- wrapPhase(candidate + rotation, period = period)
-    mae <- circularMAE(aligned[keep], ref[keep])
+    mae <- circularMAE(aligned[keep], ref[keep], period = period)
     list(aligned = aligned, rotation = rotation, mae = mae)
   }
 
