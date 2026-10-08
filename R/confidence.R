@@ -179,21 +179,11 @@ clockAmplitude <- function(exprMat, tissue = NULL, minGenes = 4) {
   # the requested FDR, so panel size adapts to how much circadian signal this
   # particular dataset actually carries (Step 3.2 subtask 1) instead of being a
   # fixed count or a fixed variance quantile.
-  oldSeed <- if (exists(".Random.seed", envir = globalenv())) {
-    get(".Random.seed", envir = globalenv())
-  } else {
-    NULL
-  }
-  set.seed(seed)
+  withr::local_seed(seed)
   nullR2 <- unlist(lapply(seq_len(nPerm), function(b) {
     Qp <- Q[sample.int(nrow(Q)), , drop = FALSE]
     rowSums((z %*% Qp)^2) / ssTot
   }), use.names = FALSE)
-  if (is.null(oldSeed)) {
-    if (exists(".Random.seed", envir = globalenv())) rm(".Random.seed", envir = globalenv())
-  } else {
-    assign(".Random.seed", oldSeed, envir = globalenv())
-  }
 
   # Empirical p from the pooled null, then BH. Pooling the null across genes is
   # valid here because every gene shares the same design and the same z-scaling,

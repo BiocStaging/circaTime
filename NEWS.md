@@ -1,3 +1,11 @@
+# circaTime 0.99.3
+
+* `.coherenceOnBlock()` (the internal helper behind `clockCoherence()`'s
+  permutation null) no longer calls `set.seed()` directly with manual
+  `.Random.seed` save/restore; it now uses `withr::local_seed()`, which
+  restores the caller's RNG state on exit (including on error) instead of
+  only on normal return. No behaviour change for callers.
+
 # circaTime 0.99.2
 
 * The fit/predict examples for the GitHub-only engines (`fitTauFisher()`,

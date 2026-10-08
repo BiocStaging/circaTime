@@ -1,7 +1,7 @@
 Package: circaTime
 Type: Package
 Title: Unified Inference of Circadian Phase from Bulk and Pseudobulk Transcriptomes
-Version: 0.99.2
+Version: 0.99.3
 Authors@R: person("Alperen", "Uysal", role = c("aut", "cre"),
     email = "dralperenuysal@gmail.com",
     comment = c(ORCID = "0000-0003-3777-6411"))
